@@ -1,0 +1,37 @@
+
+.myPosts {
+    padding: 10px;
+    display: grid;
+    grid-template-rows: minmax(50px, auto);
+    grid-template-columns: 100%;
+    grid-area: myPosts;
+}
+
+.postCreator{
+    display: grid;
+    grid-template-rows: minmax(50px, auto);
+    /* padding-top: 20px; */
+}
+
+.postCreator h1{
+    margin: 0;
+}
+
+.newPost {
+    display: grid;
+    grid-template-rows: minmax(20px, auto) 20px;
+}
+
+.textarea_createPost {
+
+}
+
+.button_addPost {
+    width: 15%;
+    justify-self: end;
+}
+
+.posts {
+    display: grid;
+    grid-row-gap: 10px;
+}

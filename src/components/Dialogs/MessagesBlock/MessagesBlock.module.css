@@ -1,0 +1,21 @@
+.messageBlock {
+    background-color: white;
+}
+
+.message {
+    color: black;
+}
+
+.newMessage{
+    display: grid;
+    grid-template-rows: minmax(20px, auto) 20px;
+}
+
+.textarea_createMessage{
+
+}
+
+.button_sendMessage{
+    width: 15%;
+    justify-self: end;
+}

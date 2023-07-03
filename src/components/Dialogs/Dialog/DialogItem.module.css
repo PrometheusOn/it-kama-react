@@ -1,0 +1,29 @@
+.dialog a{
+    color: white;
+    text-decoration: none;
+}
+
+.dialog a.active {
+    color: gold;
+    font-weight: bold;
+}
+
+
+.interviewerBlock {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    grid-template-rows: 50px;
+    grid-column-gap: 10px;
+}
+
+.interviewerName{
+    justify-self: start;
+    align-self: center;
+}
+
+.interviewerBlock img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+

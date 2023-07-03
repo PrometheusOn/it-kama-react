@@ -1,0 +1,43 @@
+.profile_info {
+    height: 400px;
+    width: 100%;
+    display: grid;
+    grid-template-rows: 180px 1fr;
+    grid-template-areas:
+    "content_banner"
+    "descriptionBlock";
+}
+
+.bannerPlace{
+    grid-area: content_banner;    
+}
+
+.content_banner {
+    height: 180px;
+    width: 100%;
+}
+
+.descriptionBlock{
+    padding: 10px;
+    display: grid;
+    grid-area: descriptionBlock;
+    grid-template-areas: 'profile_image profile_desc';
+    grid-template-columns: 200px 4fr;
+    grid-template-rows: 200px;
+}
+
+.imageBlock{
+    grid-area: profile_image;
+}
+
+.profile_image{
+    height: 200px;
+    width: 200px;
+}
+
+.description {
+    padding-left: 10px;
+    grid-area: profile_desc;
+    justify-self: start;
+    align-self: start;
+}
