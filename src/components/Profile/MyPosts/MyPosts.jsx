@@ -2,18 +2,18 @@ import React from 'react';
 import classes from './MyPosts.module.css';
 import Post from './Post/Post.jsx';
 
-const MyPosts = ( props ) => {
-    let postElements = props.profilePage.posts.map( el => <Post message={ el.message } likesCount={ el.likesCount } />)
-    
-    let newPostElement = React.createRef();
 
-    let addPost = () => {
+const MyPosts = ( props ) => {
+    let postElements = props.posts.map( el => <Post message={ el.message } likesCount={ el.likesCount } />)
+
+    let onAddPost = () => {
         props.addPost()
     }
 
-    let onChangeNewPost = () => {
-        let text = newPostElement.current.value
-        props.updatePostText( text )
+    let onChangeNewPost = (e) => {
+        let text = e.target.value
+        props.UpdateNewPostTextCreateAction(text)
+        // props.dispatch( UpdateNewPostTextCreateAction(text) )
     }
 
     return (
@@ -21,8 +21,8 @@ const MyPosts = ( props ) => {
             <div className={ classes.postCreator }>
                 <h1>My posts</h1>
                 <div className={classes.newPost}>
-                    <textarea className={classes.textarea_createPost} ref={ newPostElement } onChange={ onChangeNewPost } value={ props.profilePage.textNewPost } />
-                    <button className={classes.button_addPost} onClick={ addPost }>Send</button>
+                    <textarea className={classes.textarea_createPost} onChange={ onChangeNewPost } value={ props.textNewPost } />
+                    <button className={classes.button_addPost} onClick={ onAddPost }>Send</button>
                 </div>
             </div>
             <div className={classes.posts}>

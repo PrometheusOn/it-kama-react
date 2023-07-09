@@ -1,10 +1,11 @@
 import React from 'react';
 import classes from './Dialogs.module.css';
 import DialogItem from './Dialog/DialogItem';
-import MessagesBlock from './MessagesBlock/MessagesBlock';
+import MessagesBlockContainer from './MessagesBlock/MessagesBlockContainer';
 
 const Dialogs = ( props ) => {
-    let dialogsElements = props.dialogsPage.dialogs.map( el => <DialogItem name={ el.name } id={ el.id } img={ el.img }/> )
+    const state = props.store.getState()
+    let dialogsElements = state.dialogsPage.dialogs.map( el => <DialogItem name={ el.name } id={ el.id } img={ el.img }/> )
 
     return (
         <div className={classes.dialogs}>
@@ -12,7 +13,7 @@ const Dialogs = ( props ) => {
                 { dialogsElements }
             </div>
             <div className={classes.messagesBlock}>
-                <MessagesBlock dialogsPage={ props.dialogsPage } addMessage={ props.addMessage } updateMessageText={ props.updateMessageText }/>
+                <MessagesBlockContainer store={ props.store } />
             </div>
         </div>
     )

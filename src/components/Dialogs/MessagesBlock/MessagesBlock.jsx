@@ -1,18 +1,17 @@
 import React from 'react';
 import classes from './MessagesBlock.module.css';
 
+
 const MessagesBlock = (props) => {
     let messages = props.dialogsPage.messages.map( el => <div className={ classes.message }>{ el.message }</div> )
 
-    let newMessageElement = React.createRef()
-
     let addNewMessage = () => {
-        props.addMessage()
+        props.addNewMessageActionCreator()
     }
 
-    let onChangeNewMessage = () => {
-        let text = newMessageElement.current.value
-        props.updateMessageText( text )
+    let onChangeNewMessage = (e) => {
+        let text = e.target.value
+        props.updateNewMessageTextActionCreator(text)
     }
 
     return (
@@ -21,7 +20,7 @@ const MessagesBlock = (props) => {
                 { messages }
             </div>
             <div className={classes.newMessage}>
-                <textarea className={classes.textarea_createMessage} ref={ newMessageElement } onChange={ onChangeNewMessage } value={ props.dialogsPage.textNewMessage }/>
+                <textarea className={classes.textarea_createMessage} onChange={ onChangeNewMessage } value={ props.dialogsPage.textNewMessage }/>
                 <button className={classes.button_sendMessage} onClick={ addNewMessage }>Send</button>
             </div>
         </div>
