@@ -1,13 +1,11 @@
-import React from 'react';
-import DialogItem from './Dialog/DialogItem';
-import Dialogs from './Dialogs';
+import Dialogs from "./Dialogs";
+import { connect } from "react-redux";
 
-const DialogsContainer = ( props ) => {
-    let dialogsElements = props.dialogsPage.dialogs.map( el => <DialogItem name={ el.name } id={ el.id } img={ el.img }/> )
+const MapStateToProps = state => {
+	return {
+		dialogs: state.dialogsPage.dialogs,
+	};
+};
+const DialogsContainer = connect(MapStateToProps)(Dialogs);
 
-    return (
-        <Dialogs dialogs={ props.store.dialogsPage.dialogs }/>
-    )
-}
-
-export default DialogsContainer
+export default DialogsContainer;

@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Profile.module.css";
 import MyPostsContainer from "./MyPosts/MyPostsContainer.jsx";
 import ProfileInfo from "./ProfileInfo/ProfileInfo.jsx";
-import StoreContext from "../../StoreContext";
 
 const Profile = () => {
     return (

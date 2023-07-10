@@ -11,5 +11,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var StoreContext = _react["default"].createContext(null);
 
+var Provider = function Provider(props) {
+  return;
+};
+
 var _default = StoreContext;
 exports["default"] = _default;
