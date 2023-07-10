@@ -1,23 +1,34 @@
-import React from 'react';
-import MyPosts from './MyPosts';
-import { AddPostCreateAction, UpdateNewPostTextCreateAction } from '../../../redux/profileReducer';
+import React from "react";
+import MyPosts from "./MyPosts";
+import { AddPostCreateAction, UpdateNewPostTextCreateAction } from "../../../redux/profileReducer";
+import StoreContext from "../../../StoreContext";
 
-const MyPostsContainer = ( props ) => {
-    // let postElements = profilePage.posts.map( el => <Post message={ el.message } likesCount={ el.likesCount } />)
-    let state = props.store.getState()
-    let addPost = () => {
-        props.store.dispatch( AddPostCreateAction() )
-    }
+const MyPostsContainer = () => {
+	return (
+		<StoreContext.Consumer>
+			{store => {
+				const state = store.getState();
 
-    let onChangeNewPost = ( text ) => {
-        const action = UpdateNewPostTextCreateAction(text)
-        props.store.dispatch( action )
-    }
+				const addPost = () => {
+					store.dispatch(AddPostCreateAction());
+				};
 
-    return (<MyPosts UpdateNewPostTextCreateAction={ onChangeNewPost }
-                    addPost={ addPost }
-                    posts={ state.profilePage.posts }
-                    textNewPost={ state.profilePage.textNewPost }/>)
-}
+				const onChangeNewPost = text => {
+					const action = UpdateNewPostTextCreateAction(text);
+					store.dispatch(action);
+				};
 
-export default MyPostsContainer
+				return (
+					<MyPosts
+						UpdateNewPostTextCreateAction={onChangeNewPost}
+						addPost={addPost}
+						posts={state.profilePage.posts}
+						textNewPost={state.profilePage.textNewPost}
+					/>
+				);
+			}}
+		</StoreContext.Consumer>
+	);
+};
+
+export default MyPostsContainer;

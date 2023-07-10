@@ -8,29 +8,23 @@ import Dialogs from './components/Dialogs/Dialogs.jsx'
 import News from './components/News/News.jsx'
 import Music from './components/Music/Music.jsx'
 import Settings from './components/Settings/Settings.jsx'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
-
-const App = ( props ) => {
+const App = () => {
   return (
-    <BrowserRouter>
-      <div className="app-wrapper">
-        <Header />
-        <Nav friendsList={ props.state.sidebar.friendsList } />
-        <div className="app-wrapper-content">
-          <Routes>
-            <Route path='/dialogs/*' element={ <Dialogs store={ props.store } /> }/>
-            {/* addMessage={ props.addMessage } updateNewMessageText={ props.updateNewMessageText } */}
-            <Route path='/profile' element={ <Profile store={ props.store } /> }/>
-            {/* addPost={ props.addPost } updateNewPostText={ props.updateNewPostText }  */}
-            <Route path='/news' element={ <News /> }/>
-            <Route path='/music' element={ <Music /> }/>
-            <Route path='/settings' element={ <Settings /> }/>
-          </Routes>
-        </div>
-      </div>    
-    </BrowserRouter>
-
+    <div className="app-wrapper">
+      <Header />
+      <Nav />
+      <div className="app-wrapper-content">
+        <Routes>
+          <Route path='/dialogs/*' element={ <Dialogs /> }/>
+          <Route path='/profile' element={ <Profile /> }/>
+          <Route path='/news' element={ <News /> }/>
+          <Route path='/music' element={ <Music /> }/>
+          <Route path='/settings' element={ <Settings /> }/>
+        </Routes>
+      </div>
+    </div>
   );
 }
 

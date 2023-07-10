@@ -3,15 +3,15 @@ import classes from './MessagesBlock.module.css';
 
 
 const MessagesBlock = (props) => {
-    let messages = props.dialogsPage.messages.map( el => <div className={ classes.message }>{ el.message }</div> )
+    const messages = props.dialogsPage.messages.map( el => <div className={ classes.message }>{ el.message }</div> )
 
-    let addNewMessage = () => {
-        props.addNewMessageActionCreator()
+    const addNewMessage = () => {
+        props.addNewMessage()
     }
 
-    let onChangeNewMessage = (e) => {
-        let text = e.target.value
-        props.updateNewMessageTextActionCreator(text)
+    const onChangeNewMessageText = (e) => {
+        const text = e.target.value
+        props.onChangeNewMessageText(text)
     }
 
     return (
@@ -20,7 +20,7 @@ const MessagesBlock = (props) => {
                 { messages }
             </div>
             <div className={classes.newMessage}>
-                <textarea className={classes.textarea_createMessage} onChange={ onChangeNewMessage } value={ props.dialogsPage.textNewMessage }/>
+                <textarea className={classes.textarea_createMessage} onChange={ onChangeNewMessageText } value={ props.dialogsPage.textNewMessage }/>
                 <button className={classes.button_sendMessage} onClick={ addNewMessage }>Send</button>
             </div>
         </div>

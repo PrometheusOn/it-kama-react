@@ -13,7 +13,6 @@ const MyPosts = ( props ) => {
     let onChangeNewPost = (e) => {
         let text = e.target.value
         props.UpdateNewPostTextCreateAction(text)
-        // props.dispatch( UpdateNewPostTextCreateAction(text) )
     }
 
     return (

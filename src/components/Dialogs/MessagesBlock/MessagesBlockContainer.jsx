@@ -1,24 +1,36 @@
-import React from 'react';
-import MessagesBlock from './MessagesBlock';
-import { addNewMessageActionCreator, updateNewMessageTextActionCreator } from '../../../redux/dialogsReducer';
+import React from "react";
+import MessagesBlock from "./MessagesBlock";
+import {
+	addNewMessageActionCreator,
+	updateNewMessageTextActionCreator,
+} from "../../../redux/dialogsReducer";
+import StoreContext from "../../../StoreContext";
 
-
-const MessagesBlockContainer = (props) => {
-    let dialogsPage = props.store.getState().dialogsPage
-
-    let addNewMessage = () => {
-        props.store.dispatch( addNewMessageActionCreator() )
-    }
-
-    let onChangeNewMessage = (text) => {
-        props.store.dispatch( updateNewMessageTextActionCreator(text) )
-    }
-
+const MessagesBlockContainer = () => {
     return (
-        <MessagesBlock updateNewMessageTextActionCreator={ onChangeNewMessage }
-                        addNewMessageActionCreator={ addNewMessage }
-                        dialogsPage={ dialogsPage }/>
-    )
-}
+        <StoreContext.Consumer>
+            {store => {
+                const dialogsPage = store.getState().dialogsPage;
 
-export default MessagesBlockContainer
+                const addNewMessage = () => {
+                    store.dispatch(addNewMessageActionCreator());
+                };
+
+                const onChangeNewMessageText = text => {
+                    store.dispatch(updateNewMessageTextActionCreator(text));
+                };
+
+                return (
+                    <MessagesBlock
+                        onChangeNewMessageText={onChangeNewMessageText}
+                        addNewMessage={addNewMessage}
+                        dialogsPage={dialogsPage}
+                    />
+                );
+            }}
+	    </StoreContext.Consumer>
+    )
+	
+};
+
+export default MessagesBlockContainer;

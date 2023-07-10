@@ -1,22 +1,29 @@
-import React from 'react';
-import classes from './Dialogs.module.css';
-import DialogItem from './Dialog/DialogItem';
-import MessagesBlockContainer from './MessagesBlock/MessagesBlockContainer';
+import React from "react";
+import classes from "./Dialogs.module.css";
+import DialogItem from "./Dialog/DialogItem";
+import MessagesBlockContainer from "./MessagesBlock/MessagesBlockContainer";
+import StoreContext from "../../StoreContext";
 
-const Dialogs = ( props ) => {
-    const state = props.store.getState()
-    let dialogsElements = state.dialogsPage.dialogs.map( el => <DialogItem name={ el.name } id={ el.id } img={ el.img }/> )
-
+const Dialogs = () => {
     return (
-        <div className={classes.dialogs}>
-            <div className={classes.dialogsItems}>
-                { dialogsElements }
-            </div>
-            <div className={classes.messagesBlock}>
-                <MessagesBlockContainer store={ props.store } />
-            </div>
-        </div>
-    )
-}
+        <StoreContext.Consumer>
+            {store => {
+                const state = store.getState();
+                const dialogsElements = state.dialogsPage.dialogs.map(el => (
+                    <DialogItem name={el.name} id={el.id} img={el.img} />
+                ));
 
-export default Dialogs
+                return (
+                    <div className={classes.dialogs}>
+                        <div className={classes.dialogsItems}>{dialogsElements}</div>
+                        <div className={classes.messagesBlock}>
+                            <MessagesBlockContainer />
+                        </div>
+                    </div>
+                );
+            }}
+        </StoreContext.Consumer>
+    )
+};
+
+export default Dialogs;
