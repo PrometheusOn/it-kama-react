@@ -4,7 +4,7 @@ import Post from './Post/Post.jsx';
 
 
 const MyPosts = ( props ) => {
-    let postElements = props.posts.map( el => <Post message={ el.message } likesCount={ el.likesCount } />)
+    let postElements = props.posts.map( el => <Post message={ el.message } likesCount={ el.likesCount } key={el.id} />)
 
     let onAddPost = () => {
         props.addPost()
@@ -12,7 +12,7 @@ const MyPosts = ( props ) => {
 
     let onChangeNewPost = (e) => {
         let text = e.target.value
-        props.UpdateNewPostTextCreateAction(text)
+        props.onChangeNewPost(text)
     }
 
     return (

@@ -1,16 +1,12 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = void 0;
+var _profileReducer = require("./profileReducer");
 
-var _this = void 0;
+var _dialogsReducer = require("./dialogsReducer");
+
+var _sidebarReducer = require("./sidebarReducer");
 
 var store = {
-  _subscriber: function _subscriber() {
-    console.log('state changed');
-  },
   _state: {
     profilePage: {
       textNewPost: '',
@@ -81,47 +77,20 @@ var store = {
       }]
     }
   },
+  _callSubscriber: function _callSubscriber() {
+    console.log('state changed');
+  },
   getState: function getState() {
-    return _this.state;
-  },
-  addPost: function addPost() {
-    var newPost = {
-      id: 4,
-      message: _this._state.profilePage.textNewPost,
-      likesCount: 127
-    };
-
-    _this._state.profilePage.posts.push(newPost);
-
-    _this._state.profilePage.textNewPost = '';
-
-    _this._subscriber();
-  },
-  updatePostText: function updatePostText(text) {
-    _this._state.profilePage.textNewPost = text;
-
-    _this._subscriber();
-  },
-  addMessage: function addMessage() {
-    var newMessage = {
-      id: 5,
-      message: _this._state.dialogsPage.textNewMessage
-    };
-
-    _this._state.dialogsPage.messages.push(newMessage);
-
-    _this._state.dialogsPage.textNewMessage = '';
-
-    _this._subscriber();
-  },
-  updateMessageText: function updateMessageText(text) {
-    _this._state.dialogsPage.textNewMessage = text;
-
-    _this._subscriber();
+    return this._state;
   },
   subscribe: function subscribe(observer) {
-    _this._subscriber = observer; // патерн наблюдатель
+    this._callSubscriber = observer; // патерн наблюдатель
+  },
+  dispatch: function dispatch(action) {
+    this._state.profilePage = (0, _profileReducer.profileReducer)(this._state.profilePage, action);
+    this._state.dialogsPage = (0, _dialogsReducer.dialogsReducer)(this._state.dialogsPage, action);
+    this._state.sidebar = (0, _sidebarReducer.sidebarReducer)(this._state.sidebar, action);
+
+    this._callSubscriber(this._state);
   }
-};
-var _default = store;
-exports["default"] = _default;
+}; // export { store };

@@ -5,7 +5,7 @@ import MessagesBlockContainer from "./MessagesBlock/MessagesBlockContainer";
 
 const Dialogs = props => {
 	const dialogsElements = props.dialogs.map(el => (
-		<DialogItem name={el.name} id={el.id} img={el.img} />
+		<DialogItem name={el.name} id={el.id} img={el.img} key={el.id} />
 	));
 
 	return (

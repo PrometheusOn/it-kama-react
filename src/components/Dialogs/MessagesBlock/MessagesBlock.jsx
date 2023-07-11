@@ -3,7 +3,7 @@ import classes from './MessagesBlock.module.css';
 
 
 const MessagesBlock = (props) => {
-    const messages = props.dialogsPage.messages.map( el => <div className={ classes.message }>{ el.message }</div> )
+    const messages = props.dialogsPage.messages.map( el => <div className={ classes.message } key={el.id}>{ el.message }</div> )
 
     const addNewMessage = () => {
         props.addNewMessage()
