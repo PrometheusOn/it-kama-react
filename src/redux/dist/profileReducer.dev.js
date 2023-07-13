@@ -19,13 +19,13 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ADD_POST = 'ADD-POST';
-var UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+var ADD_POST = "ADD-POST";
+var UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 var initialState = {
-  textNewPost: '',
+  textNewPost: "",
   posts: [{
     id: 1,
-    message: 'Hi, how are you',
+    message: "Hi, how are you",
     likesCount: 787
   }, {
     id: 2,
@@ -51,7 +51,7 @@ var profileReducer = function profileReducer() {
           likesCount: 0
         };
         return _objectSpread({}, state, {
-          textNewPost: '',
+          textNewPost: "",
           posts: [].concat(_toConsumableArray(state.posts), [newPost])
         });
       }
