@@ -1,4 +1,52 @@
-.userPhoto{
-    width: 100px;
-    height: 100px;
+.userList {
+	display: grid;
+	justify-content: start;
+	grid-template-columns: 100%;
+	row-gap: 10px;
+}
+
+.user {
+	display: grid;
+	grid-template-columns: 100px minmax(600px, 60%);
+	column-gap: 5px;
+}
+
+.imageProfile {
+	width: 100px;
+	height: 100px;
+}
+
+.userPhoto {
+	width: 100px;
+	height: 100px;
+}
+
+.userInfo {
+	display: grid;
+	grid-template-columns: 0.7fr 0.3fr;
+	grid-template-rows: 1fr 30px;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+.followBtnBlock {
+	display: grid;
+	grid-column: 1/3;
+	height: 30px;
+	width: 100%;
+	justify-items: end;
+}
+
+.followBtn {
+	height: 30px;
+	min-width: 80px;
+}
+
+.userName {
+}
+
+.location {
+	display: grid;
+	justify-items: end;
+	height: 40px;
 }
