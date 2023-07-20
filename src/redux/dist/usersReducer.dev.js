@@ -3,15 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setUsersAC = exports.unfollowAC = exports.followAC = exports.usersReducer = void 0;
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+exports.setTotalUsersCountAC = exports.setCurrentPageAC = exports.setUsersAC = exports.unfollowAC = exports.followAC = exports.usersReducer = void 0;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -22,8 +14,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var FOLLOW = "FOLLOW";
 var UNFOLLOW = "UNFOLLOW";
 var SET_USERS = "SET_USERS";
+var SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+var SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USER_COUNT';
 var initialState = {
-  users: []
+  users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 1
 };
 
 var usersReducer = function usersReducer() {
@@ -64,7 +61,21 @@ var usersReducer = function usersReducer() {
     case SET_USERS:
       {
         return _objectSpread({}, state, {
-          users: [].concat(_toConsumableArray(state.users), _toConsumableArray(action.users))
+          users: action.users
+        });
+      }
+
+    case SET_CURRENT_PAGE:
+      {
+        return _objectSpread({}, state, {
+          currentPage: action.currentPage
+        });
+      }
+
+    case SET_TOTAL_USERS_COUNT:
+      {
+        return _objectSpread({}, state, {
+          totalUsersCount: action.totalUsersCount
         });
       }
 
@@ -101,3 +112,21 @@ var setUsersAC = function setUsersAC(users) {
 };
 
 exports.setUsersAC = setUsersAC;
+
+var setCurrentPageAC = function setCurrentPageAC(currentPage) {
+  return {
+    type: SET_CURRENT_PAGE,
+    currentPage: currentPage
+  };
+};
+
+exports.setCurrentPageAC = setCurrentPageAC;
+
+var setTotalUsersCountAC = function setTotalUsersCountAC(totalUsersCount) {
+  return {
+    type: SET_TOTAL_USERS_COUNT,
+    totalUsersCount: totalUsersCount
+  };
+};
+
+exports.setTotalUsersCountAC = setTotalUsersCountAC;

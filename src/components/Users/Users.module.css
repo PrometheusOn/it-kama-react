@@ -50,3 +50,8 @@
 	justify-items: end;
 	height: 40px;
 }
+
+.selectedPage{
+	color: gold;
+	font-weight: bold;
+}
