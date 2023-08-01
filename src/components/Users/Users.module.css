@@ -1,6 +1,9 @@
+.usersPage{
+	
+}
+
 .userList {
 	display: grid;
-	justify-content: start;
 	grid-template-columns: 100%;
 	row-gap: 10px;
 }
@@ -9,6 +12,7 @@
 	display: grid;
 	grid-template-columns: 100px minmax(600px, 60%);
 	column-gap: 5px;
+	justify-content: start;
 }
 
 .imageProfileBlock {
@@ -51,10 +55,34 @@
 	height: 40px;
 }
 
+.pagination {
+	display: grid;
+	height: 40px;
+	grid-auto-flow: column;
+	justify-content: center;
+	grid-template-rows: 1fr;
+	align-items: center;
+	grid-column-gap: 5px;
+}
+
 .selectedPage {
-	color: gold;
+	display: grid;
+	color: black;
 	font-weight: bold;
+	border: 2px solid black;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	justify-content: center;
+	align-content: center;
 }
 
 .unselectedPage {
+	display: grid;
+	border: 1px solid black;
+	border-radius: 50%;
+	height: 30px;
+	width: 30px;
+	justify-content: center;
+	align-content: center;
 }

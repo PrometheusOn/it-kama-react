@@ -16,12 +16,10 @@ const Users = props => {
 	};
 
 	const pages = [];
-	for (let i = 1; i <= pagesCount(); i++) {
-		pages.push(i);
-	} // ограничил кол-во страниц, т.к. всего из 24645/sizePage(5)= ~5000 страниц
+	for (let i = 1; i <= pagesCount(); i++) pages.push(i); // ограничил кол-во страниц, т.к. всего из 24645/sizePage(5)= ~5000 страниц
 
 	return (
-		<div className={classes.userList}>
+		<div className={classes.usersPage}>
 			<div className={classes.pagination}>
 				{pages.map(p => {
 					return (
@@ -40,47 +38,50 @@ const Users = props => {
 					);
 				})}
 			</div>
-			{props.users.map(user => (
-				<div key={user.id} className={classes.user}>
-					<div className={classes.imageProfileBlock}>
-						<img
-							className={classes.userPhoto}
-							src={`${user.photos.small != null ? user.photos.small : userPhoto}`}
-						/>
+			<div className={classes.userList}>
+				{props.users.map(user => (
+					<div key={user.id} className={classes.user}>
+						<div className={classes.imageProfileBlock}>
+							<img
+								className={classes.userPhoto}
+								src={`${user.photos.small != null ? user.photos.small : userPhoto}`}
+							/>
+						</div>
+						<div className={classes.userInfo}>
+							<div className={classes.userName}>
+								<div>{user.name}</div>
+								<div>{user.status}</div>
+							</div>
+							<div className={classes.location}>
+								<div>{"user.location.country"}</div>
+								<div>{"user.location.city"}</div>
+							</div>
+							<div className={classes.followBtnBlock}>
+								{user.followed ? (
+									<button
+										className={classes.followBtn}
+										onClick={() => {
+											props.unfollow(user.id);
+										}}
+									>
+										Unfollow
+									</button>
+								) : (
+									<button
+										className={classes.followBtn}
+										onClick={() => {
+											props.follow(user.id);
+										}}
+									>
+										Follow
+									</button>
+								)}
+							</div>
+						</div>
 					</div>
-					<div className={classes.userInfo}>
-						<div className={classes.userName}>
-							<div>{user.name}</div>
-							<div>{user.status}</div>
-						</div>
-						<div className={classes.location}>
-							<div>{"user.location.country"}</div>
-							<div>{"user.location.city"}</div>
-						</div>
-						<div className={classes.followBtnBlock}>
-							{user.followed ? (
-								<button
-									className={classes.followBtn}
-									onClick={() => {
-										props.unfollow(user.id);
-									}}
-								>
-									Unfollow
-								</button>
-							) : (
-								<button
-									className={classes.followBtn}
-									onClick={() => {
-										props.follow(user.id);
-									}}
-								>
-									Follow
-								</button>
-							)}
-						</div>
-					</div>
-				</div>
-			))}
+				))}	
+			</div>
+			
 		</div>
 	);
 };

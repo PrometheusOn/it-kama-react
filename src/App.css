@@ -13,5 +13,6 @@
   display: grid;
   grid-area: c;
   background-color: cornflowerblue;
+  height: 100%;
 }
 

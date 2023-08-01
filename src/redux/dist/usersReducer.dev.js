@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setTotalUsersCountAC = exports.setCurrentPageAC = exports.setUsersAC = exports.unfollowAC = exports.followAC = exports.usersReducer = void 0;
+exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -16,11 +16,13 @@ var UNFOLLOW = "UNFOLLOW";
 var SET_USERS = "SET_USERS";
 var SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 var SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USER_COUNT';
+var TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';
 var initialState = {
   users: [],
   pageSize: 5,
   totalUsersCount: 0,
-  currentPage: 1
+  currentPage: 1,
+  isFetching: false
 };
 
 var usersReducer = function usersReducer() {
@@ -79,6 +81,13 @@ var usersReducer = function usersReducer() {
         });
       }
 
+    case TOOGLE_IS_FETCHING:
+      {
+        return _objectSpread({}, state, {
+          isFetching: action.isFetching
+        });
+      }
+
     default:
       return state;
   }
@@ -86,47 +95,56 @@ var usersReducer = function usersReducer() {
 
 exports.usersReducer = usersReducer;
 
-var followAC = function followAC(userId) {
+var follow = function follow(userId) {
   return {
     type: FOLLOW,
     userId: userId
   };
 };
 
-exports.followAC = followAC;
+exports.follow = follow;
 
-var unfollowAC = function unfollowAC(userId) {
+var unfollow = function unfollow(userId) {
   return {
     type: UNFOLLOW,
     userId: userId
   };
 };
 
-exports.unfollowAC = unfollowAC;
+exports.unfollow = unfollow;
 
-var setUsersAC = function setUsersAC(users) {
+var setUsers = function setUsers(users) {
   return {
     type: SET_USERS,
     users: users
   };
 };
 
-exports.setUsersAC = setUsersAC;
+exports.setUsers = setUsers;
 
-var setCurrentPageAC = function setCurrentPageAC(currentPage) {
+var setCurrentPage = function setCurrentPage(currentPage) {
   return {
     type: SET_CURRENT_PAGE,
     currentPage: currentPage
   };
 };
 
-exports.setCurrentPageAC = setCurrentPageAC;
+exports.setCurrentPage = setCurrentPage;
 
-var setTotalUsersCountAC = function setTotalUsersCountAC(totalUsersCount) {
+var setTotalUsersCount = function setTotalUsersCount(totalUsersCount) {
   return {
     type: SET_TOTAL_USERS_COUNT,
     totalUsersCount: totalUsersCount
   };
 };
 
-exports.setTotalUsersCountAC = setTotalUsersCountAC;
+exports.setTotalUsersCount = setTotalUsersCount;
+
+var toogleIsFetching = function toogleIsFetching(isFetching) {
+  return {
+    type: TOOGLE_IS_FETCHING,
+    isFetching: isFetching
+  };
+};
+
+exports.toogleIsFetching = toogleIsFetching;
