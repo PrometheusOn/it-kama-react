@@ -22,5 +22,6 @@ var reducers = (0, _redux.combineReducers)({
   usersPage: _usersReducer.usersReducer
 });
 var store = (0, _redux.legacy_createStore)(reducers);
+window.store = store;
 var _default = store;
 exports["default"] = _default;

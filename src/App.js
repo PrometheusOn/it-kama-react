@@ -2,7 +2,7 @@
 import logo from "./logo.svg";
 import "./App.css";
 import Header from "./components/Header/Header.jsx";
-import Profile from "./components/Profile/Profile.jsx";
+import ProfileContainer from "./components/Profile/ProfileContainer.jsx";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
 import News from "./components/News/News.jsx";
 import Music from "./components/Music/Music.jsx";
@@ -19,7 +19,7 @@ const App = () => {
 			<div className='app-wrapper-content'>
 				<Routes>
 					<Route path='/dialogs/*' element={<DialogsContainer />} />
-					<Route path='/profile' element={<Profile />} />
+					<Route path='/profile/*' element={<ProfileContainer />} />
 					<Route path='/news' element={<News />} />
 					<Route path='/music' element={<Music />} />
 					<Route path='/users' element={<UsersContainer />} />

@@ -1,5 +1,5 @@
 .profile_info {
-    height: 400px;
+    height: auto;
     width: 100%;
     display: grid;
     grid-template-rows: 180px 1fr;
@@ -18,12 +18,12 @@
 }
 
 .descriptionBlock{
+
     padding: 10px;
     display: grid;
     grid-area: descriptionBlock;
     grid-template-areas: 'profile_image profile_desc';
     grid-template-columns: 200px 4fr;
-    grid-template-rows: 200px;
 }
 
 .imageBlock{
@@ -40,4 +40,17 @@
     grid-area: profile_desc;
     justify-self: start;
     align-self: start;
+}
+
+.descFontStyle{
+    font-size: medium;
+}
+
+.fullName{
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.contactLink{
+    display: grid;
 }

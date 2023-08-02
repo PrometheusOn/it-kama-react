@@ -14,16 +14,19 @@ import Preloader from "../../components/common/Preloader/Preloader.jsx";
 
 class UsersContainer extends React.Component {
 	componentDidMount() {
-		this.props.toogleIsFetching(true);
-		axios
-			.get(
-				`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-			)
-			.then(response => {
-				this.props.toogleIsFetching(false);
-				this.props.setUsers(response.data.items);
-				this.props.setTotalUsersCount(response.data.totalCount);
-			});
+		if (!(this.props.users && this.props.totalUsersCount)) {
+			//Запрос не будет выполнятся, если в state users и totalUsersCount не равны 0
+			this.props.toogleIsFetching(true);
+			axios
+				.get(
+					`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+				)
+				.then(response => {
+					this.props.toogleIsFetching(false);
+					this.props.setUsers(response.data.items);
+					this.props.setTotalUsersCount(response.data.totalCount);
+				});
+		}
 	}
 
 	onPageChanged = pageNumber => {

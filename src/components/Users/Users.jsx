@@ -1,6 +1,7 @@
 import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
+import { NavLink } from "react-router-dom";
 
 const Users = props => {
 	// const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
@@ -42,10 +43,14 @@ const Users = props => {
 				{props.users.map(user => (
 					<div key={user.id} className={classes.user}>
 						<div className={classes.imageProfileBlock}>
-							<img
-								className={classes.userPhoto}
-								src={`${user.photos.small != null ? user.photos.small : userPhoto}`}
-							/>
+							<NavLink to={`/profile/${user.id}`}>
+								<img
+									className={classes.userPhoto}
+									src={`${
+										user.photos.small != null ? user.photos.small : userPhoto
+									}`}
+								/>
+							</NavLink>
 						</div>
 						<div className={classes.userInfo}>
 							<div className={classes.userName}>
@@ -79,9 +84,8 @@ const Users = props => {
 							</div>
 						</div>
 					</div>
-				))}	
+				))}
 			</div>
-			
 		</div>
 	);
 };

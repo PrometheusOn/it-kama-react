@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.UpdateNewPostTextCreateAction = exports.AddPostCreateAction = exports.profileReducer = void 0;
+exports.SetUserProfile = exports.UpdateNewPostText = exports.AddPost = exports.profileReducer = void 0;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -21,6 +21,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var ADD_POST = "ADD-POST";
 var UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
+var SET_USER_PROFILE = "SET_USER_PROFILE";
 var initialState = {
   textNewPost: "",
   posts: [{
@@ -35,7 +36,8 @@ var initialState = {
     id: 3,
     message: "it's my first post",
     likesCount: 837
-  }]
+  }],
+  profile: null
 };
 
 var profileReducer = function profileReducer() {
@@ -63,6 +65,13 @@ var profileReducer = function profileReducer() {
         });
       }
 
+    case SET_USER_PROFILE:
+      {
+        return _objectSpread({}, state, {
+          profile: action.profile
+        });
+      }
+
     default:
       return state;
   }
@@ -70,19 +79,28 @@ var profileReducer = function profileReducer() {
 
 exports.profileReducer = profileReducer;
 
-var AddPostCreateAction = function AddPostCreateAction() {
+var AddPost = function AddPost() {
   return {
     type: ADD_POST
   };
 };
 
-exports.AddPostCreateAction = AddPostCreateAction;
+exports.AddPost = AddPost;
 
-var UpdateNewPostTextCreateAction = function UpdateNewPostTextCreateAction(text) {
+var UpdateNewPostText = function UpdateNewPostText(text) {
   return {
     type: UPDATE_NEW_POST_TEXT,
     newText: text
   };
 };
 
-exports.UpdateNewPostTextCreateAction = UpdateNewPostTextCreateAction;
+exports.UpdateNewPostText = UpdateNewPostText;
+
+var SetUserProfile = function SetUserProfile(profile) {
+  return {
+    type: SET_USER_PROFILE,
+    profile: profile
+  };
+};
+
+exports.SetUserProfile = SetUserProfile;
