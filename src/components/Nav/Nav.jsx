@@ -3,26 +3,28 @@ import classes from './Nav.module.css';
 import { NavLink } from "react-router-dom";
 import Friends from './../Friends/Friends.jsx';
 
+const setActive = ({isActive})=>( isActive? classes.activeLink : classes.item)
+
 const Nav = (props) => {
     return (
         <nav className={classes.nav}>
             <div className={ classes.item }>
-                <NavLink to='/profile' className={({isActive})=>( isActive? classes.activeLink : classes.item)}>Profile</NavLink>
+                <NavLink to='/profile' className={setActive}>Profile</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/dialogs' className={({isActive})=>( isActive? classes.activeLink : classes.item)}>Messages</NavLink>
+                <NavLink to='/dialogs' className={setActive}>Messages</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/news' className={({isActive})=>( isActive? classes.activeLink : classes.item)}>News</NavLink>
+                <NavLink to='/news' className={setActive}>News</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/music' className={({isActive})=>( isActive? classes.activeLink : classes.item)}>Music</NavLink>
+                <NavLink to='/music' className={setActive}>Music</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/users' className={({isActive})=>( isActive? classes.activeLink : classes.item)}>Find users</NavLink>
+                <NavLink to='/users' className={setActive}>Find users</NavLink>
             </div>
             <div className={classes.item}>
-                <NavLink to='/settings' className={({isActive})=>( isActive? classes.activeLink : classes.item)}>Settings</NavLink>
+                <NavLink to='/settings' className={setActive}>Settings</NavLink>
             </div>
             <div className={classes.item}>
                 <Friends friendsList={ props.friendsList } />

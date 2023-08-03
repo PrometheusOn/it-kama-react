@@ -1,11 +1,13 @@
 import MyPosts from "./MyPosts";
 import { AddPost, UpdateNewPostText} from "../../../redux/profileReducer";
 import { connect } from "react-redux";
+import userPhoto from '../../../assets/images/user.png'
 
 const MapStateToProps = (state) => {
 	return {
 		posts: state.profilePage.posts,
-		textNewPost: state.profilePage.textNewPost		
+		textNewPost: state.profilePage.textNewPost,
+		profilePhoto: state.profilePage.profile?.photos?.large || userPhoto  
 	}
 }
 const MapDispatchToProps = (dispatch) => {

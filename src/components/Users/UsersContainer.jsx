@@ -15,7 +15,7 @@ import Preloader from "../../components/common/Preloader/Preloader.jsx";
 class UsersContainer extends React.Component {
 	componentDidMount() {
 		if (!(this.props.users && this.props.totalUsersCount)) {
-			//Запрос не будет выполнятся, если в state users и totalUsersCount не равны 0
+
 			this.props.toogleIsFetching(true);
 			axios
 				.get(
@@ -69,29 +69,6 @@ const mapStateToProps = state => {
 		isFetching: state.usersPage.isFetching,
 	};
 };
-
-// const mapDispatchToProps = dispatch => {
-// 	return {
-// 		follow: userId => {
-// 			dispatch(followAC(userId));
-// 		},
-// 		unfollow: userId => {
-// 			dispatch(unfollowAC(userId));
-// 		},
-// 		setUsers: users => {
-// 			dispatch(setUsersAC(users));
-// 		},
-// 		setCurrentPage: currentPage => {
-// 			dispatch(setCurrentPageAC(currentPage));
-// 		},
-// 		setTotalUsersCount: totalCount => {
-// 			dispatch(setTotalUsersCountAC(totalCount));
-// 		},
-// 		toogleIsFetching: isFetching => {
-// 			dispatch(toogleIsFetchingAC(isFetching))
-// 		}
-// 	};
-// };
 
 export default connect(mapStateToProps, {
 	follow,

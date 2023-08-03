@@ -9,7 +9,7 @@ const initialState = {
 		{ id: 2, message: "I'm hungry... always hungry", likesCount: 512 },
 		{ id: 3, message: "it's my first post", likesCount: 837 },
 	],
-	profile: null,
+	profile: null
 };
 
 const profileReducer = (state = initialState, action) => {
