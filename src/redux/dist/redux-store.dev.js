@@ -15,13 +15,15 @@ var _sidebarReducer = require("./sidebarReducer");
 
 var _usersReducer = require("./usersReducer");
 
+var _authReducer = require("./auth-reducer");
+
 var reducers = (0, _redux.combineReducers)({
   profilePage: _profileReducer.profileReducer,
   dialogsPage: _dialogsReducer.dialogsReducer,
   sidebar: _sidebarReducer.sidebarReducer,
-  usersPage: _usersReducer.usersReducer
+  usersPage: _usersReducer.usersReducer,
+  auth: _authReducer.authReducer
 });
 var store = (0, _redux.legacy_createStore)(reducers);
-window.store = store;
 var _default = store;
 exports["default"] = _default;

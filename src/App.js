@@ -1,7 +1,6 @@
 // import React from 'react';
-import logo from "./logo.svg";
 import "./App.css";
-import Header from "./components/Header/Header.jsx";
+import HeaderContainer from "./components/Header/HeaderContainer.jsx";
 import ProfileContainer from "./components/Profile/ProfileContainer.jsx";
 import DialogsContainer from "./components/Dialogs/DialogsContainer.jsx";
 import News from "./components/News/News.jsx";
@@ -14,7 +13,7 @@ import NavContainer from "./components/Nav/NavContainer";
 const App = () => {
 	return (
 		<div className='app-wrapper'>
-			<Header />
+			<HeaderContainer />
 			<NavContainer />
 			<div className='app-wrapper-content'>
 				<Routes>
@@ -24,6 +23,7 @@ const App = () => {
 					<Route path='/music' element={<Music />} />
 					<Route path='/users' element={<UsersContainer />} />
 					<Route path='/settings' element={<Settings />} />
+					<Route path='/*' element={<div>Страница не найдена</div>} />
 				</Routes>
 			</div>
 		</div>

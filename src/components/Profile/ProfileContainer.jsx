@@ -6,7 +6,7 @@ import { SetUserProfile } from "../../redux/profileReducer";
 import { useParams } from "react-router-dom";
 
 const ProfileContainer = props => {
-	const { userId } = useParams();	
+	const { userId } = useParams();
 
 	useEffect(() => {
 		axios
