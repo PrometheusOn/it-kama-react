@@ -9,12 +9,16 @@ const ProfileContainer = props => {
 	const { userId } = useParams();
 
 	useEffect(() => {
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId || 14}`)
-			.then(response => {
-				props.SetUserProfile(response.data);
-			});
-	}, [userId]);
+		if (userId || props.idAuthUser) {
+			axios
+				.get(
+					`https://social-network.samuraijs.com/api/1.0/profile/${userId || props.idAuthUser}`
+				)
+				.then(response => {
+					props.SetUserProfile(response.data);
+				});			
+		}
+	}, [userId, props.idAuthUser]);
 
 	return (
 		<div>
@@ -25,6 +29,7 @@ const ProfileContainer = props => {
 
 const mapStateToProps = state => ({
 	profile: state.profilePage.profile,
+	idAuthUser: state.auth.id,
 });
 
 export default connect(mapStateToProps, { SetUserProfile })(ProfileContainer);

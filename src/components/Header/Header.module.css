@@ -11,12 +11,28 @@
 }
 
 .loginBlock {
-	color: white;
 	padding-right: 10px;
 }
 
 .loginBlock a {
 	color: white;
 	text-decoration: none;
-	padding-right: 10px;
+}
+
+.authorizedUser {
+	display: flex;
+	height: 60px;
+	justify-content: center;
+	align-items: center;
+}
+
+.photoAuthorizedUser img {
+	border: 1px solid black;
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+}
+
+.loginAuthorizedUser {
+    padding-left: 10px;
 }

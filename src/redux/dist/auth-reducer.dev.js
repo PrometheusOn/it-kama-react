@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.toogleIsFetching = exports.setAuthUserData = exports.authReducer = void 0;
+exports.setPhotoAuthUser = exports.toogleIsFetching = exports.setAuthUserData = exports.authReducer = void 0;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -13,10 +13,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var SET_USER_DATA = "FOLLOW";
 var TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
+var SET_PHOTO_AUTH_USER = "SET_PHOTO_AUTH_USER";
 var initialState = {
   id: null,
   email: null,
   login: null,
+  photo: null,
   isAuth: false,
   isFetching: false
 };
@@ -37,6 +39,13 @@ var authReducer = function authReducer() {
       {
         return _objectSpread({}, state, {
           isFetching: action.isFetching
+        });
+      }
+
+    case SET_PHOTO_AUTH_USER:
+      {
+        return _objectSpread({}, state, {
+          photo: action.photo
         });
       }
 
@@ -68,3 +77,12 @@ var toogleIsFetching = function toogleIsFetching(isFetching) {
 };
 
 exports.toogleIsFetching = toogleIsFetching;
+
+var setPhotoAuthUser = function setPhotoAuthUser(photo) {
+  return {
+    type: SET_PHOTO_AUTH_USER,
+    photo: photo
+  };
+};
+
+exports.setPhotoAuthUser = setPhotoAuthUser;
