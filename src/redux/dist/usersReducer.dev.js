@@ -3,7 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
+exports.toogleFollowingProgress = exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -14,15 +22,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var FOLLOW = "FOLLOW";
 var UNFOLLOW = "UNFOLLOW";
 var SET_USERS = "SET_USERS";
-var SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-var SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USER_COUNT';
-var TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING';
+var SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+var SET_TOTAL_USERS_COUNT = "SET_TOTAL_USER_COUNT";
+var TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
+var TOOGLE_IS_FOLLOWING_PROGRESS = "TOOGLE_IS_FOLLOWING_PROGRESS";
 var initialState = {
   users: [],
   pageSize: 5,
   totalUsersCount: 0,
   currentPage: 1,
-  isFetching: false
+  isFetching: false,
+  followingInProgress: []
 };
 
 var usersReducer = function usersReducer() {
@@ -88,6 +98,15 @@ var usersReducer = function usersReducer() {
         });
       }
 
+    case TOOGLE_IS_FOLLOWING_PROGRESS:
+      {
+        return _objectSpread({}, state, {
+          followingInProgress: action.isFetching ? [].concat(_toConsumableArray(state.followingInProgress), [action.userId]) : state.followingInProgress.filter(function (id) {
+            return id != action.userId;
+          })
+        });
+      }
+
     default:
       return state;
   }
@@ -148,3 +167,13 @@ var toogleIsFetching = function toogleIsFetching(isFetching) {
 };
 
 exports.toogleIsFetching = toogleIsFetching;
+
+var toogleFollowingProgress = function toogleFollowingProgress(isFetching, userId) {
+  return {
+    type: TOOGLE_IS_FOLLOWING_PROGRESS,
+    isFetching: isFetching,
+    userId: userId
+  };
+};
+
+exports.toogleFollowingProgress = toogleFollowingProgress;

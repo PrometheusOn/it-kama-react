@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
 import { followAPI } from "../../api/api";
 
 const Users = props => {
@@ -66,12 +65,17 @@ const Users = props => {
 							<div className={classes.followBtnBlock}>
 								{user.followed ? (
 									<button
+										disabled={props.followingInProgress.some(
+											id => id === user.id
+										)}
 										className={classes.followBtn}
 										onClick={() => {
+											props.toogleFollowingProgress(true, user.id);
 											followAPI.unfollow(user.id).then(response => {
 												if (response.resultCode == 0) {
 													props.unfollow(user.id);
 												}
+												props.toogleFollowingProgress(false, user.id);
 											});
 										}}
 									>
@@ -79,12 +83,17 @@ const Users = props => {
 									</button>
 								) : (
 									<button
+										disabled={props.followingInProgress.some(
+											id => id === user.id
+										)}
 										className={classes.followBtn}
 										onClick={() => {
+											props.toogleFollowingProgress(true, user.id);
 											followAPI.follow(user.id).then(response => {
 												if (response.resultCode == 0) {
 													props.follow(user.id);
 												}
+												props.toogleFollowingProgress(false, user.id);
 											});
 										}}
 									>

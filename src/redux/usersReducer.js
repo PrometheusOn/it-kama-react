@@ -1,9 +1,10 @@
 const FOLLOW = "FOLLOW";
 const UNFOLLOW = "UNFOLLOW";
 const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE'
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USER_COUNT'
-const TOOGLE_IS_FETCHING = 'TOOGLE_IS_FETCHING'
+const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USER_COUNT";
+const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
+const TOOGLE_IS_FOLLOWING_PROGRESS = "TOOGLE_IS_FOLLOWING_PROGRESS";
 
 const initialState = {
 	users: [],
@@ -11,6 +12,7 @@ const initialState = {
 	totalUsersCount: 0,
 	currentPage: 1,
 	isFetching: false,
+	followingInProgress: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -42,18 +44,29 @@ const usersReducer = (state = initialState, action) => {
 		}
 		case SET_CURRENT_PAGE: {
 			return {
-				...state, currentPage: action.currentPage
-			}
+				...state,
+				currentPage: action.currentPage,
+			};
 		}
 		case SET_TOTAL_USERS_COUNT: {
 			return {
-				...state, totalUsersCount: action.totalUsersCount
-			}
+				...state,
+				totalUsersCount: action.totalUsersCount,
+			};
 		}
 		case TOOGLE_IS_FETCHING: {
 			return {
-				...state, isFetching: action.isFetching
-			}
+				...state,
+				isFetching: action.isFetching,
+			};
+		}
+		case TOOGLE_IS_FOLLOWING_PROGRESS: {
+			return {
+				...state,
+				followingInProgress: action.isFetching
+					? [...state.followingInProgress, action.userId]
+					: state.followingInProgress.filter(id => id != action.userId),
+			};
 		}
 		default:
 			return state;
@@ -63,8 +76,22 @@ const usersReducer = (state = initialState, action) => {
 const follow = userId => ({ type: FOLLOW, userId });
 const unfollow = userId => ({ type: UNFOLLOW, userId });
 const setUsers = users => ({ type: SET_USERS, users });
-const setCurrentPage = currentPage => ({ type: SET_CURRENT_PAGE, currentPage})
-const setTotalUsersCount = totalUsersCount => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount})
-const toogleIsFetching = isFetching => ({ type: TOOGLE_IS_FETCHING, isFetching})
+const setCurrentPage = currentPage => ({ type: SET_CURRENT_PAGE, currentPage });
+const setTotalUsersCount = totalUsersCount => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount });
+const toogleIsFetching = isFetching => ({ type: TOOGLE_IS_FETCHING, isFetching });
+const toogleFollowingProgress = (isFetching, userId) => ({
+	type: TOOGLE_IS_FOLLOWING_PROGRESS,
+	isFetching,
+	userId,
+});
 
-export { usersReducer, follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toogleIsFetching };
+export {
+	usersReducer,
+	follow,
+	unfollow,
+	setUsers,
+	setCurrentPage,
+	setTotalUsersCount,
+	toogleIsFetching,
+	toogleFollowingProgress,
+};
