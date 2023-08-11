@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./Users.module.css";
 import userPhoto from "../../assets/images/user.png";
 import { NavLink } from "react-router-dom";
-import { followAPI } from "../../api/api";
 
 const Users = props => {
 	// const pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize)
@@ -70,13 +69,7 @@ const Users = props => {
 										)}
 										className={classes.followBtn}
 										onClick={() => {
-											props.toogleFollowingProgress(true, user.id);
-											followAPI.unfollow(user.id).then(response => {
-												if (response.resultCode == 0) {
-													props.unfollow(user.id);
-												}
-												props.toogleFollowingProgress(false, user.id);
-											});
+											props.unfollow(user.id);
 										}}
 									>
 										Unfollow
@@ -88,13 +81,7 @@ const Users = props => {
 										)}
 										className={classes.followBtn}
 										onClick={() => {
-											props.toogleFollowingProgress(true, user.id);
-											followAPI.follow(user.id).then(response => {
-												if (response.resultCode == 0) {
-													props.follow(user.id);
-												}
-												props.toogleFollowingProgress(false, user.id);
-											});
+											props.follow(user.id);
 										}}
 									>
 										Follow

@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.toogleFollowingProgress = exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
+exports.getUsers = exports.toogleFollowingProgress = exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
+
+var _api = require("../api/api");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -114,23 +116,19 @@ var usersReducer = function usersReducer() {
 
 exports.usersReducer = usersReducer;
 
-var follow = function follow(userId) {
+var followSuccess = function followSuccess(userId) {
   return {
     type: FOLLOW,
     userId: userId
   };
 };
 
-exports.follow = follow;
-
-var unfollow = function unfollow(userId) {
+var unfollowSuccess = function unfollowSuccess(userId) {
   return {
     type: UNFOLLOW,
     userId: userId
   };
 };
-
-exports.unfollow = unfollow;
 
 var setUsers = function setUsers(users) {
   return {
@@ -177,3 +175,50 @@ var toogleFollowingProgress = function toogleFollowingProgress(isFetching, userI
 };
 
 exports.toogleFollowingProgress = toogleFollowingProgress;
+
+var getUsers = function getUsers(currentPage, pageSize) {
+  return function (dispatch) {
+    dispatch(toogleIsFetching(true));
+
+    _api.userAPI.getUsers(currentPage, pageSize).then(function (response) {
+      dispatch(setCurrentPage(currentPage));
+      dispatch(toogleIsFetching(false));
+      dispatch(setUsers(response.items));
+      dispatch(setTotalUsersCount(response.totalCount));
+    });
+  };
+};
+
+exports.getUsers = getUsers;
+
+var unfollow = function unfollow(userId) {
+  return function (dispatch) {
+    dispatch(toogleFollowingProgress(true, userId));
+
+    _api.followAPI.unfollow(userId).then(function (response) {
+      if (response.resultCode == 0) {
+        dispatch(unfollowSuccess(userId));
+      }
+
+      dispatch(toogleFollowingProgress(false, userId));
+    });
+  };
+};
+
+exports.unfollow = unfollow;
+
+var follow = function follow(userId) {
+  return function (dispatch) {
+    dispatch(toogleFollowingProgress(true, userId));
+
+    _api.followAPI.follow(userId).then(function (response) {
+      if (response.resultCode == 0) {
+        dispatch(followSuccess(userId));
+      }
+
+      dispatch(toogleFollowingProgress(false, userId));
+    });
+  };
+};
+
+exports.follow = follow;

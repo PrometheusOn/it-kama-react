@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SetUserProfile = exports.UpdateNewPostText = exports.AddPost = exports.profileReducer = void 0;
+exports.getProfileUser = exports.SetUserProfile = exports.UpdateNewPostText = exports.AddPost = exports.profileReducer = void 0;
+
+var _api = require("../api/api");
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -104,3 +106,13 @@ var SetUserProfile = function SetUserProfile(profile) {
 };
 
 exports.SetUserProfile = SetUserProfile;
+
+var getProfileUser = function getProfileUser(id) {
+  return function (dispatch) {
+    _api.profileAPI.getProfile(id).then(function (response) {
+      dispatch(SetUserProfile(response));
+    });
+  };
+};
+
+exports.getProfileUser = getProfileUser;

@@ -3,7 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.setPhotoAuthUser = exports.toogleIsFetching = exports.setAuthUserData = exports.authReducer = void 0;
+exports.getAuthUser = exports.setPhotoAuthUser = exports.toogleIsFetching = exports.setAuthUserData = exports.authReducer = void 0;
+
+var _api = require("../api/api");
+
+var _user = _interopRequireDefault(require("../assets/images/user.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -86,3 +92,29 @@ var setPhotoAuthUser = function setPhotoAuthUser(photo) {
 };
 
 exports.setPhotoAuthUser = setPhotoAuthUser;
+
+var getAuthUser = function getAuthUser() {
+  return function (dispatch) {
+    dispatch(toogleIsFetching(true));
+
+    _api.authAPI.authMe().then(function (response) {
+      if (response.resultCode === 0) {
+        dispatch(toogleIsFetching(false));
+        var _response$data = response.data,
+            id = _response$data.id,
+            email = _response$data.email,
+            login = _response$data.login;
+        dispatch(setAuthUserData(id, email, login));
+        return id;
+      }
+    }).then(function (id) {
+      _api.profileAPI.getProfile(id).then(function (response) {
+        var photoUser;
+        response.photos.large ? photoUser = response.photos.large : photoUser = _user["default"];
+        dispatch(setPhotoAuthUser(photoUser));
+      });
+    });
+  };
+};
+
+exports.getAuthUser = getAuthUser;

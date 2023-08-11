@@ -23,7 +23,7 @@ const authAPI = {
 };
 
 const profileAPI = {
-	getProfile(id) {
+    getProfile(id) {
 		return instance.get(`profile/${id}`).then(response => response.data);
 	},
 };

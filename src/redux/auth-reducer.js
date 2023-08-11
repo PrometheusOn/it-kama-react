@@ -1,3 +1,6 @@
+import { authAPI, profileAPI } from "../api/api";
+import userPhoto from "../assets/images/user.png";
+
 const SET_USER_DATA = "FOLLOW";
 const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
 const SET_PHOTO_AUTH_USER = "SET_PHOTO_AUTH_USER";
@@ -44,4 +47,29 @@ const setAuthUserData = (id, email, login) => ({
 const toogleIsFetching = isFetching => ({ type: TOOGLE_IS_FETCHING, isFetching });
 const setPhotoAuthUser = photo => ({ type: SET_PHOTO_AUTH_USER, photo });
 
-export { authReducer, setAuthUserData, toogleIsFetching, setPhotoAuthUser };
+const getAuthUser = () => {
+	return dispatch => {
+		dispatch(toogleIsFetching(true));
+		authAPI
+			.authMe()
+			.then(response => {
+				if (response.resultCode === 0) {
+					dispatch(toogleIsFetching(false));
+					const { id, email, login } = response.data;
+					dispatch(setAuthUserData(id, email, login));
+					return id;
+				}
+			})
+			.then(id => {
+				profileAPI.getProfile(id).then(response => {
+					let photoUser;
+					response.photos.large
+						? (photoUser = response.photos.large)
+						: (photoUser = userPhoto);
+					dispatch(setPhotoAuthUser(photoUser));
+				});
+			});
+	};
+};
+
+export { authReducer, setAuthUserData, toogleIsFetching, setPhotoAuthUser, getAuthUser };
