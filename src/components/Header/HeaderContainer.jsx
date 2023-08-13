@@ -5,7 +5,7 @@ import { getAuthUser } from "../../redux/auth-reducer";
 
 class HeaderContainer extends React.Component {
 	componentDidMount() {
-		this.props.getAuthUser();
+		this.props.getAuthUser(); // не получаем данные в компоненте, а передаем намерение о желании получить информацию об авторизованном пользователе
 	}
 	render() {
 		return <Header {...this.props} />;

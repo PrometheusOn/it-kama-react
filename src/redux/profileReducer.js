@@ -49,12 +49,11 @@ const AddPost = () => ({ type: ADD_POST });
 const UpdateNewPostText = text => ({ type: UPDATE_NEW_POST_TEXT, newText: text });
 const SetUserProfile = profile => ({ type: SET_USER_PROFILE, profile });
 
-const getProfileUser = (id) => {
-	return dispatch => {
-		profileAPI.getProfile(id).then(response => {
-			dispatch(SetUserProfile(response));
-		});
-	};
+const getProfileUser = id => dispatch => {
+	
+	profileAPI.getProfile(id).then(response => {
+		dispatch(SetUserProfile(response));
+	});
 };
 
 export { profileReducer, AddPost, UpdateNewPostText, SetUserProfile, getProfileUser };

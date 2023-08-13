@@ -23,9 +23,18 @@ const authAPI = {
 };
 
 const profileAPI = {
-    getProfile(id) {
+	getProfile(id) {
 		return instance.get(`profile/${id}`).then(response => response.data);
 	},
+	// setPhoto(photo) {
+	// 	const formData = new FormData();
+	// 	FormData.append("image", photo);
+	// 	return instance.put(`profile/photo`, formData, {
+	// 		headers: {
+	// 			"Content-Type": "multipart/form-data",
+	// 		},
+	// 	});
+	// },
 };
 
 const followAPI = {

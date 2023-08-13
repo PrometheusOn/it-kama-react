@@ -40,7 +40,16 @@ var profileAPI = {
     return instance.get("profile/".concat(id)).then(function (response) {
       return response.data;
     });
-  }
+  } // setPhoto(photo) {
+  // 	const formData = new FormData();
+  // 	FormData.append("image", photo);
+  // 	return instance.put(`profile/photo`, formData, {
+  // 		headers: {
+  // 			"Content-Type": "multipart/form-data",
+  // 		},
+  // 	});
+  // },
+
 };
 exports.profileAPI = profileAPI;
 var followAPI = {

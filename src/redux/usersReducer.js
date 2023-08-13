@@ -87,40 +87,34 @@ const toogleFollowingProgress = (isFetching, userId) => ({
 	userId,
 });
 
-const getUsers = (currentPage, pageSize) => {
-	return dispatch => {
-		dispatch(toogleIsFetching(true));
-		userAPI.getUsers(currentPage, pageSize).then(response => {
-			dispatch(setCurrentPage(currentPage));
-			dispatch(toogleIsFetching(false));
-			dispatch(setUsers(response.items));
-			dispatch(setTotalUsersCount(response.totalCount));
-		});
-	};
+const getUsers = (currentPage, pageSize) => dispatch => {
+	dispatch(toogleIsFetching(true));
+	userAPI.getUsers(currentPage, pageSize).then(response => {
+		dispatch(setCurrentPage(currentPage));
+		dispatch(toogleIsFetching(false));
+		dispatch(setUsers(response.items));
+		dispatch(setTotalUsersCount(response.totalCount));
+	});
 };
 
-const unfollow = userId => {
-	return dispatch => {
-		dispatch(toogleFollowingProgress(true, userId));
-		followAPI.unfollow(userId).then(response => {
-			if (response.resultCode == 0) {
-				dispatch(unfollowSuccess(userId));
-			}
-			dispatch(toogleFollowingProgress(false, userId));
-		});
-	};
+const unfollow = userId => dispatch => {
+	dispatch(toogleFollowingProgress(true, userId));
+	followAPI.unfollow(userId).then(response => {
+		if (response.resultCode == 0) {
+			dispatch(unfollowSuccess(userId));
+		}
+		dispatch(toogleFollowingProgress(false, userId));
+	});
 };
 
-const follow = userId => {
-	return dispatch => {
-		dispatch(toogleFollowingProgress(true, userId));
-		followAPI.follow(userId).then(response => {
-			if (response.resultCode == 0) {
-				dispatch(followSuccess(userId));
-			}
-			dispatch(toogleFollowingProgress(false, userId));
-		});
-	};
+const follow = userId => dispatch => {
+	dispatch(toogleFollowingProgress(true, userId));
+	followAPI.follow(userId).then(response => {
+		if (response.resultCode == 0) {
+			dispatch(followSuccess(userId));
+		}
+		dispatch(toogleFollowingProgress(false, userId));
+	});
 };
 
 export {

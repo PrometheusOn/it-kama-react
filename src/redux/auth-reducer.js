@@ -9,7 +9,7 @@ const initialState = {
 	id: null,
 	email: null,
 	login: null,
-	photo: null,
+	photo: userPhoto,
 	isAuth: false,
 	isFetching: false,
 };
@@ -47,29 +47,32 @@ const setAuthUserData = (id, email, login) => ({
 const toogleIsFetching = isFetching => ({ type: TOOGLE_IS_FETCHING, isFetching });
 const setPhotoAuthUser = photo => ({ type: SET_PHOTO_AUTH_USER, photo });
 
-const getAuthUser = () => {
-	return dispatch => {
-		dispatch(toogleIsFetching(true));
-		authAPI
-			.authMe()
-			.then(response => {
-				if (response.resultCode === 0) {
-					dispatch(toogleIsFetching(false));
-					const { id, email, login } = response.data;
-					dispatch(setAuthUserData(id, email, login));
-					return id;
-				}
-			})
-			.then(id => {
-				profileAPI.getProfile(id).then(response => {
-					let photoUser;
-					response.photos.large
-						? (photoUser = response.photos.large)
-						: (photoUser = userPhoto);
-					dispatch(setPhotoAuthUser(photoUser));
-				});
+const getAuthUser = () => dispatch => {
+	dispatch(toogleIsFetching(true));
+	authAPI.authMe().then(response => {
+		if (response.resultCode === 0) {
+			dispatch(toogleIsFetching(false));
+			const { id, email, login } = response.data;
+			dispatch(setAuthUserData(id, email, login));
+
+			profileAPI.getProfile(id).then(response => {
+				if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
 			});
-	};
+		}
+	});
 };
 
-export { authReducer, setAuthUserData, toogleIsFetching, setPhotoAuthUser, getAuthUser };
+// const getPhotoAuthUser = id => dispatch => {
+// 	profileAPI.getProfile(id).then(response => {
+// 		if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
+// 	});
+// };
+
+export {
+	authReducer,
+	setAuthUserData,
+	toogleIsFetching,
+	setPhotoAuthUser,
+	getAuthUser,
+	// getPhotoAuthUser,
+};

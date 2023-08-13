@@ -1,7 +1,6 @@
 import React from "react";
 import classes from "./Header.module.css";
 import { NavLink } from "react-router-dom";
-import userPhoto from "../../assets/images/user.png";
 
 const Header = props => {
 	return (
@@ -13,7 +12,6 @@ const Header = props => {
 					<div className={classes.authorizedUser}>
 						<div className={classes.photoAuthorizedUser}>
 							<img src={props.photoAuthUser} />
-                            {/* ? props.photoAuthUser : userPhoto */}
 						</div>
 						<div className={classes.loginAuthorizedUser}>{props.login}</div>
 					</div>

@@ -24,7 +24,7 @@ var initialState = {
   id: null,
   email: null,
   login: null,
-  photo: null,
+  photo: _user["default"],
   isAuth: false,
   isFetching: false
 };
@@ -105,16 +105,18 @@ var getAuthUser = function getAuthUser() {
             email = _response$data.email,
             login = _response$data.login;
         dispatch(setAuthUserData(id, email, login));
-        return id;
+
+        _api.profileAPI.getProfile(id).then(function (response) {
+          if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
+        });
       }
-    }).then(function (id) {
-      _api.profileAPI.getProfile(id).then(function (response) {
-        var photoUser;
-        response.photos.large ? photoUser = response.photos.large : photoUser = _user["default"];
-        dispatch(setPhotoAuthUser(photoUser));
-      });
     });
   };
-};
+}; // const getPhotoAuthUser = id => dispatch => {
+// 	profileAPI.getProfile(id).then(response => {
+// 		if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
+// 	});
+// };
+
 
 exports.getAuthUser = getAuthUser;

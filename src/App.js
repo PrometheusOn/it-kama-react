@@ -9,6 +9,7 @@ import Settings from "./components/Settings/Settings.jsx";
 import UsersContainer from "./components/Users/UsersContainer.jsx";
 import { Routes, Route } from "react-router-dom";
 import NavContainer from "./components/Nav/NavContainer";
+import Login from "./components/Login/Login.jsx";
 
 const App = () => {
 	return (
@@ -24,6 +25,7 @@ const App = () => {
 					<Route path='/users' element={<UsersContainer />} />
 					<Route path='/settings' element={<Settings />} />
 					<Route path='/*' element={<div>Страница не найдена</div>} />
+					<Route path='/login' element={<Login />} />
 				</Routes>
 			</div>
 		</div>
