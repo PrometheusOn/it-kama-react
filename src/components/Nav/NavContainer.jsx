@@ -1,11 +1,11 @@
+import { compose } from "redux";
 import Nav from "./Nav";
 import { connect } from "react-redux";
 
-const MapStateToProps = (state) => {
-    return {
-        friendsList: state.sidebar.friendsList
-    }   
-}
-const NavContainer = connect(MapStateToProps)(Nav)
+const MapStateToProps = state => {
+	return {
+		friendsList: state.sidebar.friendsList,
+	};
+};
 
-export default NavContainer
+export default compose(connect(MapStateToProps))(Nav);

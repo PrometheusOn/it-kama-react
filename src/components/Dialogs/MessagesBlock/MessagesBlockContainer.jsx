@@ -4,6 +4,7 @@ import {
 	updateNewMessageTextActionCreator,
 } from "../../../redux/dialogsReducer";
 import { connect } from "react-redux";
+import { compose } from "redux";
 
 const MapStateToProps = state => {
 	return {
@@ -21,6 +22,4 @@ const MapDispatchToProps = dispatch => {
 	};
 };
 
-const MessagesBlockContainer = connect(MapStateToProps, MapDispatchToProps)(MessagesBlock);
-
-export default MessagesBlockContainer;
+export default compose(connect(MapStateToProps, MapDispatchToProps))(MessagesBlock);
