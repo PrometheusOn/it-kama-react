@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import UserPhoto from "../../../assets/images/user.png";
+import ProfileStatus from "./ProfileStatus/ProfileStatus";
 
 const ProfileInfo = props => {
 	if (!props.profile) {
@@ -58,6 +59,7 @@ const ProfileInfo = props => {
 						})}
 					</div>
 				</div>
+				<ProfileStatus status='Если по спортивному интересу - то я не готов и вес не сделал, если вы сомневаетесь в моего мужского, принесите перса мне, я с него шкуру сниму' />
 			</div>
 		</div>
 	);
