@@ -1,5 +1,5 @@
 import MyPosts from "./MyPosts";
-import { AddPost, UpdateNewPostText } from "../../../redux/profileReducer";
+import { addPost, updateNewPostText } from "../../../redux/profileReducer";
 import { connect } from "react-redux";
 import userPhoto from "../../../assets/images/user.png";
 import { compose } from "redux";
@@ -14,10 +14,10 @@ const MapStateToProps = state => {
 const MapDispatchToProps = dispatch => {
 	return {
 		addPost: () => {
-			dispatch(AddPost());
+			dispatch(addPost());
 		},
 		onChangeNewPost: text => {
-			const action = UpdateNewPostText(text);
+			const action = updateNewPostText(text);
 			dispatch(action);
 		},
 	};

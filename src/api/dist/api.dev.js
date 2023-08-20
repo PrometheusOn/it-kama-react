@@ -13,7 +13,8 @@ var instance = _axios["default"].create({
   withCredentials: true,
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   headers: {
-    "API-KEY": "4fa658c6-5a5a-4c5d-a20f-396571c4d681"
+    "API-KEY": "752ce6e5-ad96-4385-ada2-4fd74ff54389" // '4fa658c6-5a5a-4c5d-a20f-396571c4d681'
+
   }
 });
 
@@ -40,16 +41,32 @@ var profileAPI = {
     return instance.get("profile/".concat(id)).then(function (response) {
       return response.data;
     });
-  } // setPhoto(photo) {
-  // 	const formData = new FormData();
-  // 	FormData.append("image", photo);
-  // 	return instance.put(`profile/photo`, formData, {
-  // 		headers: {
-  // 			"Content-Type": "multipart/form-data",
-  // 		},
-  // 	});
+  },
+  // setPhoto(image) {
+  // 	// 	const formData = new FormData();
+  // 	// 	FormData.append("image", photo);
+  // 	return instance.put(
+  // 		`profile/photo`,
+  // 		{ image },
+  // 		{
+  // 			headers: {
+  // 				"Content-Type": "multipart/form-data",
+  // 			},
+  // 		}
+  // 	);
   // },
-
+  getStatus: function getStatus(id) {
+    return instance.get("profile/status/".concat(id)).then(function (response) {
+      return response.data;
+    });
+  },
+  updateStatus: function updateStatus(status) {
+    return instance.get("profile/status", {
+      status: status
+    }).then(function (response) {
+      return response.data;
+    });
+  }
 };
 exports.profileAPI = profileAPI;
 var followAPI = {

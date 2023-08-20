@@ -23,6 +23,12 @@ const ProfileInfo = props => {
 						className={classes.profile_image}
 						src={props.profile.photos.large ? props.profile.photos.large : UserPhoto}
 					/>
+					<ProfileStatus
+						userIdCurrentPage={props.userIdCurrentPage}
+						userIdAuthUser={props.userIdAuthUser}
+						status={props.status}
+						updateUserStatus={props.updateUserStatus}
+					/>
 				</div>
 				<div className={classes.description}>
 					<div className={classes.descFontStyle + " " + classes.fullName}>
@@ -59,7 +65,6 @@ const ProfileInfo = props => {
 						})}
 					</div>
 				</div>
-				<ProfileStatus status='Если по спортивному интересу - то я не готов и вес не сделал, если вы сомневаетесь в моего мужского, принесите перса мне, я с него шкуру сниму' />
 			</div>
 		</div>
 	);
