@@ -33,6 +33,11 @@ var authAPI = {
     return instance.get("auth/me").then(function (response) {
       return response.data;
     });
+  },
+  login: function login(obj) {
+    return instance.post("/auth/login", obj).then(function (response) {
+      return response.data;
+    });
   }
 };
 exports.authAPI = authAPI;
@@ -45,9 +50,9 @@ var profileAPI = {
   // setPhoto(image) {
   // 	// 	const formData = new FormData();
   // 	// 	FormData.append("image", photo);
-  // 	return instance.put(
-  // 		`profile/photo`,
-  // 		{ image },
+  // return instance.put(
+  // 	`profile/photo`,
+  // 	{ small: null, large: image },
   // 		{
   // 			headers: {
   // 				"Content-Type": "multipart/form-data",
@@ -61,7 +66,7 @@ var profileAPI = {
     });
   },
   updateStatus: function updateStatus(status) {
-    return instance.get("profile/status", {
+    return instance.put("profile/status", {
       status: status
     }).then(function (response) {
       return response.data;

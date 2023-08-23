@@ -21,6 +21,9 @@ const authAPI = {
 	authMe() {
 		return instance.get(`auth/me`).then(response => response.data);
 	},
+	login(obj) {
+		return instance.post("/auth/login", obj).then(response => response.data);
+	},
 };
 
 const profileAPI = {
