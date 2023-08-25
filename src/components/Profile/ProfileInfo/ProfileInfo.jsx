@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import UserPhoto from "../../../assets/images/user.png";
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
+import ProfileStatusContainer from "./ProfileStatus/ProfileStatusContainer";
 
 const ProfileInfo = props => {
 	if (!props.profile) {
@@ -23,7 +23,7 @@ const ProfileInfo = props => {
 						className={classes.profile_image}
 						src={props.profile.photos.large ? props.profile.photos.large : UserPhoto}
 					/>
-					<ProfileStatus
+					<ProfileStatusContainer
 						userIdCurrentPage={props.userIdCurrentPage}
 						userIdAuthUser={props.userIdAuthUser}
 						status={props.status}

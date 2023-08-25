@@ -1,31 +1,24 @@
-import React from 'react';
-import classes from './MessagesBlock.module.css';
+import React from "react";
+import classes from "./MessagesBlock.module.css";
+import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
+const MessagesBlock = props => {
+	const messages = props.dialogsPage.messages.map(el => (
+		<div className={classes.message} key={el.id}>
+			{el.message}
+		</div>
+	));
 
-const MessagesBlock = (props) => {
-    const messages = props.dialogsPage.messages.map( el => <div className={ classes.message } key={el.id}>{ el.message }</div> )
+	const addNewMessage = values => {
+		props.addNewMessage(values.fieldForNewMessage);
+	};
 
-    const addNewMessage = () => {
-        props.addNewMessage()
-    }
+	return (
+		<div className={classes.messageBlock}>
+			<div className={classes.messages}>{messages}</div>
+			<AddMessageForm onSubmit={addNewMessage} {...props} />
+		</div>
+	);
+};
 
-    const onChangeNewMessageText = (e) => {
-        const text = e.target.value
-        props.onChangeNewMessageText(text)
-    }
-
-    return (
-        <div className={ classes.messageBlock }>
-            <div className={ classes.messages }>
-                { messages }
-            </div>
-            <div className={classes.newMessage}>
-                <textarea className={classes.textarea_createMessage} onChange={ onChangeNewMessageText } value={ props.dialogsPage.textNewMessage }/>
-                <button className={classes.button_sendMessage} onClick={ addNewMessage }>Send</button>
-            </div>
-        </div>
-
-    )
-}
-
-export default MessagesBlock
+export default MessagesBlock;

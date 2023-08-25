@@ -7,7 +7,7 @@ import withAuthRedirect from "../../hoc/withAuthRedirect.jsx";
 import { compose } from "redux";
 
 const ProfileContainer = props => {
-	const { userId } = useParams();
+	const userId = Number(useParams().userId);
 
 	useEffect(() => {
 		if (userId || props.idAuthUser) {

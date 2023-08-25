@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.updateUserStatus = exports.getUserStatus = exports.getProfileUser = exports.setUserProfile = exports.updateNewPostText = exports.addPost = exports.profileReducer = void 0;
+exports.updateUserStatus = exports.getUserStatus = exports.getProfileUser = exports.setUserProfile = exports.addPost = exports.profileReducer = void 0;
 
 var _api = require("../api/api");
 
@@ -22,11 +22,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var ADD_POST = "ADD-POST";
-var UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 var SET_USER_PROFILE = "SET_USER_PROFILE";
 var SET_USER_STATUS = "SET_USER_STATUS";
 var initialState = {
-  textNewPost: "",
   posts: [{
     id: 1,
     message: "Hi, how are you",
@@ -53,19 +51,11 @@ var profileReducer = function profileReducer() {
       {
         var newPost = {
           id: 4,
-          message: state.textNewPost,
+          message: action.textNewPost,
           likesCount: 0
         };
         return _objectSpread({}, state, {
-          textNewPost: "",
           posts: [].concat(_toConsumableArray(state.posts), [newPost])
-        });
-      }
-
-    case UPDATE_NEW_POST_TEXT:
-      {
-        return _objectSpread({}, state, {
-          textNewPost: action.newText
         });
       }
 
@@ -90,22 +80,14 @@ var profileReducer = function profileReducer() {
 
 exports.profileReducer = profileReducer;
 
-var addPost = function addPost() {
+var addPost = function addPost(textNewPost) {
   return {
-    type: ADD_POST
+    type: ADD_POST,
+    textNewPost: textNewPost
   };
 };
 
 exports.addPost = addPost;
-
-var updateNewPostText = function updateNewPostText(text) {
-  return {
-    type: UPDATE_NEW_POST_TEXT,
-    newText: text
-  };
-};
-
-exports.updateNewPostText = updateNewPostText;
 
 var setUserProfile = function setUserProfile(profile) {
   return {

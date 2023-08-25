@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addNewMessageActionCreator = exports.updateNewMessageTextActionCreator = exports.dialogsReducer = void 0;
+exports.addNewMessage = exports.dialogsReducer = void 0;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -19,40 +19,40 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
-var ADD_MESSAGE = 'ADD-MESSAGE';
+var UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
+var ADD_MESSAGE = "ADD-MESSAGE";
+var CLEAR_FIELD_NEW_MESSAGE = "CLEAR_FIELD_NEW_MESSAGE";
 var initialState = {
   dialogs: [{
     id: 1,
-    name: 'Рамазан',
-    img: 'https://sun9-38.userapi.com/impf/c628431/v628431282/47195/U0go3lIVmkM.jpg?size=604x440&quality=96&sign=cfe3ad01c40005dea23dd528afe9b84f&c_uniq_tag=nGAT9iRRTja1ROTYYIx5BCCn-nJS4HpSK5P6OTkhDEk&type=album'
+    name: "Рамазан",
+    img: "https://sun9-38.userapi.com/impf/c628431/v628431282/47195/U0go3lIVmkM.jpg?size=604x440&quality=96&sign=cfe3ad01c40005dea23dd528afe9b84f&c_uniq_tag=nGAT9iRRTja1ROTYYIx5BCCn-nJS4HpSK5P6OTkhDEk&type=album"
   }, {
     id: 2,
-    name: 'Амир',
-    img: 'https://cs13.pikabu.ru/post_img/big/2021/01/10/5/1610259041165390829.jpg'
+    name: "Амир",
+    img: "https://cs13.pikabu.ru/post_img/big/2021/01/10/5/1610259041165390829.jpg"
   }, {
     id: 3,
-    name: 'Артур',
-    img: 'https://milliard.tatar/images/uploads/5ff7e61b2b51280dcb6994efa061a075.jpg'
+    name: "Артур",
+    img: "https://milliard.tatar/images/uploads/5ff7e61b2b51280dcb6994efa061a075.jpg"
   }, {
     id: 4,
-    name: 'Семён',
-    img: 'https://cdnn21.img.ria.ru/images/07e6/0c/01/1835584300_520:0:2567:2047_1440x0_80_0_0_7c4d99ac8f241c5be355031307e70058.jpg'
+    name: "Семён",
+    img: "https://cdnn21.img.ria.ru/images/07e6/0c/01/1835584300_520:0:2567:2047_1440x0_80_0_0_7c4d99ac8f241c5be355031307e70058.jpg"
   }],
   messages: [{
     id: 1,
-    message: 'hi'
+    message: "hi"
   }, {
     id: 2,
-    message: 'how are you'
+    message: "how are you"
   }, {
     id: 3,
-    message: 'yo'
+    message: "yo"
   }, {
     id: 4,
-    message: 'wait...Are you nigger?'
-  }],
-  textNewMessage: ''
+    message: "wait...Are you nigger?"
+  }]
 };
 
 var dialogsReducer = function dialogsReducer() {
@@ -62,20 +62,11 @@ var dialogsReducer = function dialogsReducer() {
   switch (action.type) {
     case ADD_MESSAGE:
       {
-        var text = state.textNewMessage;
         return _objectSpread({}, state, {
-          textNewMessage: '',
           messages: [].concat(_toConsumableArray(state.messages), [{
             id: 5,
-            message: text
+            message: action.textNewMessage
           }])
-        });
-      }
-
-    case UPDATE_NEW_MESSAGE_TEXT:
-      {
-        return _objectSpread({}, state, {
-          textNewMessage: action.newText
         });
       }
 
@@ -86,19 +77,11 @@ var dialogsReducer = function dialogsReducer() {
 
 exports.dialogsReducer = dialogsReducer;
 
-var updateNewMessageTextActionCreator = function updateNewMessageTextActionCreator(text) {
+var addNewMessage = function addNewMessage(textNewMessage) {
   return {
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    newText: text
+    type: ADD_MESSAGE,
+    textNewMessage: textNewMessage
   };
 };
 
-exports.updateNewMessageTextActionCreator = updateNewMessageTextActionCreator;
-
-var addNewMessageActionCreator = function addNewMessageActionCreator() {
-  return {
-    type: ADD_MESSAGE
-  };
-};
-
-exports.addNewMessageActionCreator = addNewMessageActionCreator;
+exports.addNewMessage = addNewMessage;

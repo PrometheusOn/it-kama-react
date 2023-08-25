@@ -1,7 +1,7 @@
 import { compose } from "redux";
 import ProfileStatus from "./ProfileStatus";
 
-const ProfileStatusContainer = () => {
+const ProfileStatusContainer = props => {
 	return <ProfileStatus {...props} />;
 };
 

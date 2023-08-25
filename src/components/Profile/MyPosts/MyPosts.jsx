@@ -1,34 +1,31 @@
-import React from 'react';
-import classes from './MyPosts.module.css';
-import Post from './Post/Post.jsx';
+import React from "react";
+import classes from "./MyPosts.module.css";
+import Post from "./Post/Post.jsx";
+import AddPostForm from "./AddPostForm/AddPostForm";
 
+const MyPosts = props => {
+	const postElements = props.posts.map(el => (
+		<Post
+			profilePhoto={props.profilePhoto}
+			message={el.message}
+			likesCount={el.likesCount}
+			key={el.id}
+		/>
+	));
 
-const MyPosts = ( props ) => {
-    let postElements = props.posts.map( el => <Post profilePhoto={ props.profilePhoto } message={ el.message } likesCount={ el.likesCount } key={el.id} />)
+	const onAddPost = values => {
+		props.addPost(values.fieldForNewPost);
+	};
 
-    let onAddPost = () => {
-        props.addPost()
-    }
+	return (
+		<div className={classes.myPosts}>
+			<div className={classes.postCreator}>
+				<h1>My posts</h1>
+				<AddPostForm onSubmit={onAddPost} />
+			</div>
+			<div className={classes.posts}>{postElements}</div>
+		</div>
+	);
+};
 
-    let onChangeNewPost = (e) => {
-        let text = e.target.value
-        props.onChangeNewPost(text)
-    }
-
-    return (
-        <div className={classes.myPosts}>
-            <div className={ classes.postCreator }>
-                <h1>My posts</h1>
-                <div className={classes.newPost}>
-                    <textarea className={classes.textarea_createPost} onChange={ onChangeNewPost } value={ props.textNewPost } />
-                    <button className={classes.button_addPost} onClick={ onAddPost }>Send</button>
-                </div>
-            </div>
-            <div className={classes.posts}>
-                { postElements }
-            </div>
-        </div>
-    )
-}
-
-export default MyPosts
+export default MyPosts;
