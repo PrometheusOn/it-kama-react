@@ -1,36 +1,31 @@
 .myPosts {
-    padding: 10px;
-    display: grid;
-    grid-template-rows: minmax(50px, auto);
-    grid-template-columns: 100%;
-    grid-area: myPosts;
+	padding: 10px;
+	display: grid;
+	grid-template-rows: minmax(135px, auto) 1fr;
+	grid-template-columns: 100%;
+	grid-area: myPosts;
 }
 
-.postCreator{
-    display: grid;
-    grid-template-rows: minmax(50px, auto);
-    /* padding-top: 20px; */
+.postCreator {
+	display: grid;
+	grid-template-rows: 50px minmax(90px, auto);
 }
 
-.postCreator h1{
-    margin: 0;
+.postCreator h1 {
+	margin: 0;
 }
 
 .newPost {
-    display: grid;
-    grid-template-rows: minmax(20px, auto) 20px;
-}
-
-.textarea_createPost {
-
+	display: grid;
+	grid-template-rows: minmax(70px, auto) 20px;
 }
 
 .button_addPost {
-    width: 15%;
-    justify-self: end;
+	width: 15%;
+	justify-self: end;
 }
 
 .posts {
-    display: grid;
-    grid-row-gap: 10px;
+	display: grid;
+	grid-row-gap: 10px;
 }

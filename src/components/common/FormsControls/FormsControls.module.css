@@ -1,0 +1,24 @@
+.formControl {
+	height: 100%;
+	width: 100%;
+}
+
+.formControl textarea {
+	height: 40px;
+	width: 100%;
+	padding: 0.8px;
+	border: 1px solid black;
+	border-radius: 5px;
+    overflow-y: hidden;
+}
+
+.formControl.error input,
+.formControl.error textarea {
+	border: 2px solid red;
+	padding: 0;
+}
+
+.formControl.error div {
+	color: red;
+	height: 20px;
+}
