@@ -31,7 +31,7 @@ const ProfileContainer = props => {
 
 const mapStateToProps = state => ({
 	profile: state.profilePage.profile,
-	idAuthUser: state.auth.id,
+	idAuthUser: state.auth.userId,
 	status: state.profilePage.status,
 });
 

@@ -11,7 +11,7 @@ const AddMessageForm = props => {
 	return (
 		<form onSubmit={props.handleSubmit} className={classes.newMessage}>
 			<Field
-				type='textarea'
+				typeField='textarea'
 				component={FormControl}
 				name='fieldForNewMessage'
 				placeholder='Введите ваше сообщение'

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getAuthUser = exports.setPhotoAuthUser = exports.toogleIsFetching = exports.setAuthUserData = exports.authReducer = void 0;
+exports.signOut = exports.signIn = exports.setLogPassUser = exports.getAuthUser = exports.setPhotoAuthUser = exports.toogleIsFetching = exports.setAuthUserData = exports.authReducer = void 0;
 
 var _api = require("../api/api");
 
@@ -17,13 +17,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var SET_USER_DATA = "FOLLOW";
+var SET_LOGPASS_USER = "SET_LOGPASS_USER";
+var SET_USERID = "SET_USERID";
+var CLEAR_USER_DATA = "CLEAR_USER_DATA";
+var SET_USER_DATA = "SET_USER_DATA";
 var TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
 var SET_PHOTO_AUTH_USER = "SET_PHOTO_AUTH_USER";
 var initialState = {
-  id: null,
-  email: null,
-  login: null,
+  email: "",
+  password: "",
+  rememberMe: false,
+  captcha: false,
+  userId: "",
+  login: "",
   photo: _user["default"],
   isAuth: false,
   isFetching: false
@@ -34,6 +40,46 @@ var authReducer = function authReducer() {
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
   switch (action.type) {
+    case SET_LOGPASS_USER:
+      {
+        var _action$obj = action.obj,
+            email = _action$obj.email,
+            password = _action$obj.password,
+            _action$obj$rememberM = _action$obj.rememberMe,
+            rememberMe = _action$obj$rememberM === void 0 ? false : _action$obj$rememberM,
+            _action$obj$captcha = _action$obj.captcha,
+            captcha = _action$obj$captcha === void 0 ? false : _action$obj$captcha;
+        return _objectSpread({}, state, {
+          email: email,
+          password: password,
+          rememberMe: rememberMe,
+          captcha: captcha,
+          isAuth: true
+        });
+      }
+
+    case SET_USERID:
+      {
+        return _objectSpread({}, state, {
+          userId: action.userId
+        });
+      }
+
+    case CLEAR_USER_DATA:
+      {
+        return {
+          email: "",
+          password: "",
+          rememberMe: false,
+          captcha: false,
+          userId: "",
+          login: "",
+          photo: _user["default"],
+          isAuth: false,
+          isFetching: false
+        };
+      }
+
     case SET_USER_DATA:
       {
         return _objectSpread({}, state, {}, action.data, {
@@ -62,11 +108,11 @@ var authReducer = function authReducer() {
 
 exports.authReducer = authReducer;
 
-var setAuthUserData = function setAuthUserData(id, email, login) {
+var setAuthUserData = function setAuthUserData(userId, email, login) {
   return {
     type: SET_USER_DATA,
     data: {
-      id: id,
+      userId: userId,
       email: email,
       login: login
     }
@@ -93,6 +139,28 @@ var setPhotoAuthUser = function setPhotoAuthUser(photo) {
 
 exports.setPhotoAuthUser = setPhotoAuthUser;
 
+var setLogPassUser = function setLogPassUser(obj) {
+  return {
+    type: SET_LOGPASS_USER,
+    obj: obj
+  };
+};
+
+exports.setLogPassUser = setLogPassUser;
+
+var setUserId = function setUserId(userId) {
+  return {
+    type: SET_USERID,
+    userId: userId
+  };
+};
+
+var clearUserData = function clearUserData() {
+  return {
+    type: CLEAR_USER_DATA
+  };
+};
+
 var getAuthUser = function getAuthUser() {
   return function (dispatch) {
     dispatch(toogleIsFetching(true));
@@ -101,22 +169,55 @@ var getAuthUser = function getAuthUser() {
       if (response.resultCode === 0) {
         dispatch(toogleIsFetching(false));
         var _response$data = response.data,
-            id = _response$data.id,
+            userId = _response$data.id,
             email = _response$data.email,
             login = _response$data.login;
-        dispatch(setAuthUserData(id, email, login));
+        dispatch(setAuthUserData(userId, email, login));
 
-        _api.profileAPI.getProfile(id).then(function (response) {
+        _api.profileAPI.getProfile(userId).then(function (response) {
           if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
         });
       }
     });
   };
-}; // const getPhotoAuthUser = id => dispatch => {
-// 	profileAPI.getProfile(id).then(response => {
-// 		if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
-// 	});
-// };
-
+};
 
 exports.getAuthUser = getAuthUser;
+
+var getUserId = function getUserId(obj) {
+  return function (dispatch) {
+    dispatch(setLogPassUser(obj));
+
+    _api.authAPI.login(obj).then(function (response) {
+      if (response.resultCode === 0) {
+        dispatch(setUserId(response.data.userId));
+      }
+    });
+  };
+};
+
+var signIn = function signIn(obj) {
+  return function (dispatch) {
+    var objectForApi = {
+      email: obj.email,
+      password: obj.password,
+      rememberMe: obj.rememberMe || false,
+      captcha: obj.captcha || false
+    };
+    dispatch(getUserId(objectForApi));
+  };
+};
+
+exports.signIn = signIn;
+
+var signOut = function signOut() {
+  return function (dispatch) {
+    _api.authAPI.logout().then(function (response) {
+      if (response.resultCode === 0) {
+        dispatch(clearUserData());
+      }
+    });
+  };
+};
+
+exports.signOut = signOut;

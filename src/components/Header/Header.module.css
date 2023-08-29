@@ -19,11 +19,22 @@
 	text-decoration: none;
 }
 
+.logoutBlock {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+}
+
 .authorizedUser {
 	display: flex;
 	height: 60px;
 	justify-content: center;
 	align-items: center;
+}
+
+.logout {
+	cursor: pointer;
 }
 
 .photoAuthorizedUser img {
@@ -34,5 +45,5 @@
 }
 
 .loginAuthorizedUser {
-    padding-left: 10px;
+	padding-left: 10px;
 }

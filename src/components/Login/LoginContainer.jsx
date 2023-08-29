@@ -1,25 +1,20 @@
 import Login from "./Login";
-import { signIn } from "../../redux/login-reducer";
+import { signIn } from "../../redux/auth-reducer";
 import { compose } from "redux";
 import { connect } from "react-redux";
-import withLoginRedirect from "../../hoc/withLoginRedirect.jsx";
 
 const LoginContainer = props => {
-	return <Login signIn={props.signIn} />;
+	return <Login signIn={props.signIn} isAuth={props.isAuth} />;
 };
 
 const mapStateToProps = state => {
 	return {
-		email: state.login.email,
-		password: state.login.password,
-		rememberMe: state.login.rememberMe,
-		captcha: state.login.captcha,
+		isAuth: state.auth.isAuth,
 	};
 };
 
 export default compose(
 	connect(mapStateToProps, {
 		signIn, //thunkCreator TC
-	}),
-	withLoginRedirect
+	})
 )(LoginContainer);

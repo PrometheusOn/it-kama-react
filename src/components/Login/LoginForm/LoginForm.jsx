@@ -8,24 +8,31 @@ const LoginForm = props => {
 		<form onSubmit={props.handleSubmit}>
 			<div>
 				<Field
-					type='input'
-					placeholder='Login'
-					name='login'
+					placeholder='Email'
+					name='email'
+					typeField='input'
 					component={FormControl}
 					validate={[requiredField]}
 				/>
 			</div>
 			<div>
 				<Field
-					type='input'
 					placeholder='Password'
 					name='password'
+					type='password'
+					typeField='input'
 					component={FormControl}
 					validate={[requiredField]}
 				/>
 			</div>
 			<div>
-				<Field type='checkbox' name='rememberMe' component='input' />
+				<Field
+					type='checkbox'
+					name='rememberMe'
+					component='input'
+					// typeField='input'
+					// component={FormControl}
+				/>
 				remember me
 			</div>
 			<div>

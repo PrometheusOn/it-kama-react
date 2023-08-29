@@ -9,14 +9,19 @@ const Header = props => {
 
 			<div className={classes.loginBlock}>
 				{props.isAuth ? (
-					<div className={classes.authorizedUser}>
-						<div className={classes.photoAuthorizedUser}>
-							<img src={props.photoAuthUser} />
+					<div className={classes.logoutBlock}>
+						<div className={classes.authorizedUser}>
+							<div className={classes.photoAuthorizedUser}>
+								<img src={props.photoAuthUser} />
+							</div>
+							<div className={classes.loginAuthorizedUser}>{props.login}</div>
 						</div>
-						<div className={classes.loginAuthorizedUser}>{props.login}</div>
+						<div className={classes.logout} onClick={props.signOut}>
+							Выйти
+						</div>
 					</div>
 				) : (
-					<NavLink to={"/login"}>Login</NavLink>
+					<NavLink to={"/login"}>Войти</NavLink>
 				)}
 			</div>
 		</header>

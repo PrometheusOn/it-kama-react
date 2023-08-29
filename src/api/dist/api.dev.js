@@ -38,6 +38,11 @@ var authAPI = {
     return instance.post("/auth/login", obj).then(function (response) {
       return response.data;
     });
+  },
+  logout: function logout() {
+    return instance["delete"]("auth/login").then(function (response) {
+      return response.data;
+    });
   }
 };
 exports.authAPI = authAPI;

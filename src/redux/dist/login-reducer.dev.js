@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.signIn = exports.setLogPassUser = exports.loginReducer = void 0;
+exports.signOut = exports.signIn = exports.setLogPassUser = exports.loginReducer = void 0;
 
 var _api = require("../api/api");
 
@@ -17,6 +17,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var SET_LOGPASS_USER = "SET_LOGPASS_USER";
 var SET_USERID = "SET_USERID";
+var CLEAR_USER_DATA = "CLEAR_USER_DATA";
 var initialState = {
   email: "",
   password: "",
@@ -54,6 +55,17 @@ var loginReducer = function loginReducer() {
         });
       }
 
+    case CLEAR_USER_DATA:
+      {
+        return {
+          email: "",
+          password: "",
+          rememberMe: false,
+          captcha: false,
+          userId: null
+        };
+      }
+
     default:
       return state;
   }
@@ -74,6 +86,12 @@ var setUserId = function setUserId(userId) {
   return {
     type: SET_USERID,
     userId: userId
+  };
+};
+
+var clearUserData = function clearUserData() {
+  return {
+    type: CLEAR_USER_DATA
   };
 };
 
@@ -102,3 +120,15 @@ var signIn = function signIn(obj) {
 };
 
 exports.signIn = signIn;
+
+var signOut = function signOut() {
+  return function (dispatch) {
+    _api.authAPI.logout().then(function (response) {
+      if (response.resultCode === 0) {
+        dispatch(clearUserData());
+      }
+    });
+  };
+};
+
+exports.signOut = signOut;

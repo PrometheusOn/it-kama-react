@@ -10,7 +10,7 @@ const AddPostForm = props => {
 	return (
 		<form onSubmit={props.handleSubmit} className={classes.newPost}>
 			<Field
-				type='textarea'
+				typeField='textarea'
 				component={FormControl}
 				placeholder='Что нового?'
 				name='fieldForNewPost'

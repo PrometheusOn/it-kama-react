@@ -24,6 +24,9 @@ const authAPI = {
 	login(obj) {
 		return instance.post("/auth/login", obj).then(response => response.data);
 	},
+	logout() {
+		return instance.delete("auth/login").then(response => response.data);
+	},
 };
 
 const profileAPI = {
