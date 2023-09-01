@@ -1,4 +1,5 @@
 import { authAPI, profileAPI } from "../api/api";
+import { stopSubmit } from "redux-form";
 import userPhoto from "../assets/images/user.png";
 
 const SET_LOGPASS_USER = "SET_LOGPASS_USER";
@@ -87,7 +88,7 @@ const clearUserData = () => ({ type: CLEAR_USER_DATA });
 
 const getAuthUser = () => dispatch => {
 	dispatch(toogleIsFetching(true));
-	authAPI.authMe().then(response => {
+	return authAPI.authMe().then(response => {
 		if (response.resultCode === 0) {
 			dispatch(toogleIsFetching(false));
 			const { id: userId, email, login } = response.data;
@@ -99,15 +100,6 @@ const getAuthUser = () => dispatch => {
 	});
 };
 
-const getUserId = obj => dispatch => {
-	dispatch(setLogPassUser(obj));
-	authAPI.login(obj).then(response => {
-		if (response.resultCode === 0) {
-			dispatch(setUserId(response.data.userId));
-		}
-	});
-};
-
 const signIn = obj => dispatch => {
 	const objectForApi = {
 		email: obj.email,
@@ -115,7 +107,20 @@ const signIn = obj => dispatch => {
 		rememberMe: obj.rememberMe || false,
 		captcha: obj.captcha || false,
 	};
-	dispatch(getUserId(objectForApi));
+	authAPI.login(objectForApi).then(response => {
+		if (response.resultCode === 0) {
+			dispatch(setLogPassUser(objectForApi));
+			dispatch(setUserId(response.data.userId));
+		} else {
+			const message =
+				response.messages.length > 0 ? response.messages[0] : "Неизвестная ошибка";
+			dispatch(
+				stopSubmit("login", {
+					_error: message,
+				})
+			);
+		}
+	});
 };
 
 const signOut = () => dispatch => {

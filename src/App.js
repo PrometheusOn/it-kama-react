@@ -10,8 +10,18 @@ import UsersContainer from "./components/Users/UsersContainer.jsx";
 import { Routes, Route } from "react-router-dom";
 import NavContainer from "./components/Nav/NavContainer";
 import LoginContainer from "./components/Login/LoginContainer";
+import { initializeApp } from "./redux/appReducer";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import Preloader from "./components/common/Preloader/Preloader";
 
-const App = () => {
+const App = props => {
+	useEffect(() => {
+		props.initializeApp();
+	});
+	// [props.userId]
+
+	if (!props.initialized) return <Preloader />;
 	return (
 		<div className='app-wrapper'>
 			<HeaderContainer />
@@ -31,5 +41,9 @@ const App = () => {
 		</div>
 	);
 };
-
-export default App;
+const mapStateToProps = state => {
+	return {
+		initialized: state.app.initialized,
+	};
+};
+export default connect(mapStateToProps, { initializeApp })(App);

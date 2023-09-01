@@ -13,7 +13,7 @@ var instance = _axios["default"].create({
   withCredentials: true,
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
   headers: {
-    "API-KEY": "752ce6e5-ad96-4385-ada2-4fd74ff54389" // '4fa658c6-5a5a-4c5d-a20f-396571c4d681'
+    "API-KEY": '4fa658c6-5a5a-4c5d-a20f-396571c4d681' // "752ce6e5-ad96-4385-ada2-4fd74ff54389"
 
   }
 });

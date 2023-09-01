@@ -2,6 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import { FormControl } from "../../common/FormsControls/FormsControls";
 import { requiredField } from "../../../utils/validators/validators";
+import classes from "../../common/FormsControls/FormsControls.module.css";
 
 const LoginForm = props => {
 	return (
@@ -35,6 +36,7 @@ const LoginForm = props => {
 				/>
 				remember me
 			</div>
+			{props.error && <div className={classes.formSummaryError}>{props.error}</div>}
 			<div>
 				<button>Login</button>
 			</div>

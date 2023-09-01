@@ -7,6 +7,8 @@ exports.signOut = exports.signIn = exports.setLogPassUser = exports.getAuthUser 
 
 var _api = require("../api/api");
 
+var _reduxForm = require("redux-form");
+
 var _user = _interopRequireDefault(require("../assets/images/user.png"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -164,8 +166,7 @@ var clearUserData = function clearUserData() {
 var getAuthUser = function getAuthUser() {
   return function (dispatch) {
     dispatch(toogleIsFetching(true));
-
-    _api.authAPI.authMe().then(function (response) {
+    return _api.authAPI.authMe().then(function (response) {
       if (response.resultCode === 0) {
         dispatch(toogleIsFetching(false));
         var _response$data = response.data,
@@ -184,18 +185,6 @@ var getAuthUser = function getAuthUser() {
 
 exports.getAuthUser = getAuthUser;
 
-var getUserId = function getUserId(obj) {
-  return function (dispatch) {
-    dispatch(setLogPassUser(obj));
-
-    _api.authAPI.login(obj).then(function (response) {
-      if (response.resultCode === 0) {
-        dispatch(setUserId(response.data.userId));
-      }
-    });
-  };
-};
-
 var signIn = function signIn(obj) {
   return function (dispatch) {
     var objectForApi = {
@@ -204,7 +193,18 @@ var signIn = function signIn(obj) {
       rememberMe: obj.rememberMe || false,
       captcha: obj.captcha || false
     };
-    dispatch(getUserId(objectForApi));
+
+    _api.authAPI.login(objectForApi).then(function (response) {
+      if (response.resultCode === 0) {
+        dispatch(setLogPassUser(objectForApi));
+        dispatch(setUserId(response.data.userId));
+      } else {
+        var message = response.messages.length > 0 ? response.messages[0] : "Неизвестная ошибка";
+        dispatch((0, _reduxForm.stopSubmit)("login", {
+          _error: message
+        }));
+      }
+    });
   };
 };
 

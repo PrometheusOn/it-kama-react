@@ -9,7 +9,7 @@
 	padding: 0.8px;
 	border: 1px solid black;
 	border-radius: 5px;
-    overflow-y: hidden;
+	overflow-y: hidden;
 }
 
 .formControl.error input,
@@ -21,4 +21,8 @@
 .formControl.error div {
 	color: red;
 	height: 20px;
+}
+
+.formSummaryError {
+	color: red;
 }
