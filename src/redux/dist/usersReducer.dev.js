@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getUsers = exports.toogleFollowingProgress = exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
+exports.requestUsers = exports.toogleFollowingProgress = exports.toogleIsFetching = exports.setTotalUsersCount = exports.setCurrentPage = exports.setUsers = exports.unfollow = exports.follow = exports.usersReducer = void 0;
 
 var _api = require("../api/api");
 
@@ -176,7 +176,7 @@ var toogleFollowingProgress = function toogleFollowingProgress(isFetching, userI
 
 exports.toogleFollowingProgress = toogleFollowingProgress;
 
-var getUsers = function getUsers(currentPage, pageSize) {
+var requestUsers = function requestUsers(currentPage, pageSize) {
   return function (dispatch) {
     dispatch(toogleIsFetching(true));
 
@@ -189,7 +189,7 @@ var getUsers = function getUsers(currentPage, pageSize) {
   };
 };
 
-exports.getUsers = getUsers;
+exports.requestUsers = requestUsers;
 
 var unfollow = function unfollow(userId) {
   return function (dispatch) {

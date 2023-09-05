@@ -2,6 +2,7 @@ import Login from "./Login";
 import { signIn } from "../../redux/auth-reducer";
 import { compose } from "redux";
 import { connect } from "react-redux";
+import { getIsAuth } from "../../redux/selectors/auth-selector";
 
 const LoginContainer = props => {
 	return <Login signIn={props.signIn} isAuth={props.isAuth} />;
@@ -9,7 +10,7 @@ const LoginContainer = props => {
 
 const mapStateToProps = state => {
 	return {
-		isAuth: state.auth.isAuth,
+		isAuth: getIsAuth(state),
 	};
 };
 

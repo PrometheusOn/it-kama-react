@@ -3,7 +3,7 @@ import classes from "./MessagesBlock.module.css";
 import AddMessageForm from "./AddMessageForm/AddMessageForm";
 
 const MessagesBlock = props => {
-	const messages = props.dialogsPage.messages.map(el => (
+	const messages = props.messages.map(el => (
 		<div className={classes.message} key={el.id}>
 			{el.message}
 		</div>

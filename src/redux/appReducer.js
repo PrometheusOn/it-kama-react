@@ -1,6 +1,3 @@
-import { authAPI, profileAPI } from "../api/api";
-import { stopSubmit } from "redux-form";
-import userPhoto from "../assets/images/user.png";
 import { getAuthUser } from "./auth-reducer";
 
 const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
@@ -26,7 +23,7 @@ const initializedSuccess = () => ({
 });
 
 const initializeApp = () => dispatch => {
-	let promise = dispatch(getAuthUser());
+	const promise = dispatch(getAuthUser());
 	Promise.all([promise]).then(() => {
 		dispatch(initializedSuccess());
 	});

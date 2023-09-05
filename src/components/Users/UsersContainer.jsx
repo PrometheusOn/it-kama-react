@@ -1,19 +1,27 @@
 import React from "react";
 import Users from "./Users";
 import { connect } from "react-redux";
-import { follow, unfollow, toogleFollowingProgress, getUsers } from "../../redux/usersReducer";
+import { follow, unfollow, toogleFollowingProgress, requestUsers } from "../../redux/usersReducer";
 import Preloader from "../../components/common/Preloader/Preloader.jsx";
 import { compose } from "redux";
+import {
+	getUsers,
+	getPageSize,
+	getTotalUsersCount,
+	getCurrentPage,
+	getIsFetching,
+	getFollowingInProgress,
+} from "../../redux/selectors/users-selectors";
 
 class UsersContainer extends React.Component {
 	componentDidMount() {
 		if (!(this.props.users && this.props.totalUsersCount)) {
-			this.props.getUsers(this.props.currentPage, this.props.pageSize);
+			this.props.requestUsers(this.props.currentPage, this.props.pageSize);
 		}
 	}
 
 	onPageChanged = pageNumber => {
-		this.props.getUsers(pageNumber, this.props.pageSize);
+		this.props.requestUsers(pageNumber, this.props.pageSize);
 	};
 
 	render() {
@@ -36,14 +44,25 @@ class UsersContainer extends React.Component {
 	}
 }
 
+// const mapStateToProps = state => {
+// 	return {
+// 		users: state.usersPage.users,
+// 		pageSize: state.usersPage.pageSize,
+// 		totalUsersCount: state.usersPage.totalUsersCount,
+// 		currentPage: state.usersPage.currentPage,
+// 		isFetching: state.usersPage.isFetching,
+// 		followingInProgress: state.usersPage.followingInProgress,
+// 	};
+// };
+
 const mapStateToProps = state => {
 	return {
-		users: state.usersPage.users,
-		pageSize: state.usersPage.pageSize,
-		totalUsersCount: state.usersPage.totalUsersCount,
-		currentPage: state.usersPage.currentPage,
-		isFetching: state.usersPage.isFetching,
-		followingInProgress: state.usersPage.followingInProgress,
+		users: getUsers(state),
+		pageSize: getPageSize(state),
+		totalUsersCount: getTotalUsersCount(state),
+		currentPage: getCurrentPage(state),
+		isFetching: getIsFetching(state),
+		followingInProgress: getFollowingInProgress(state),
 	};
 };
 
@@ -52,6 +71,6 @@ export default compose(
 		follow,
 		unfollow,
 		toogleFollowingProgress, // AC
-		getUsers, //thunkCreator TC
+		requestUsers, //thunkCreator TC
 	})
 )(UsersContainer);

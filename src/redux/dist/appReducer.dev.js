@@ -5,15 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.initializeApp = exports.appReducer = void 0;
 
-var _api = require("../api/api");
-
-var _reduxForm = require("redux-form");
-
-var _user = _interopRequireDefault(require("../assets/images/user.png"));
-
 var _authReducer = require("./auth-reducer");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 

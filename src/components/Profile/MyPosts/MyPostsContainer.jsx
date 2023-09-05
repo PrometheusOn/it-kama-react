@@ -1,14 +1,18 @@
 import MyPosts from "./MyPosts";
 import { addPost } from "../../../redux/profileReducer";
 import { connect } from "react-redux";
-import userPhoto from "../../../assets/images/user.png";
 import { compose } from "redux";
+import {
+	getPosts,
+	getTextNewPost,
+	getProfilePhoto,
+} from "../../../redux/selectors/profile-selector";
 
 const MapStateToProps = state => {
 	return {
-		posts: state.profilePage.posts,
-		textNewPost: state.profilePage.textNewPost,
-		profilePhoto: state.profilePage.profile?.photos?.large || userPhoto,
+		posts: getPosts(state),
+		textNewPost: getTextNewPost(state),
+		profilePhoto: getProfilePhoto(state),
 	};
 };
 

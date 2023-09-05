@@ -13,12 +13,13 @@ import LoginContainer from "./components/Login/LoginContainer";
 import { initializeApp } from "./redux/appReducer";
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { compose } from "redux";
 import Preloader from "./components/common/Preloader/Preloader";
 
 const App = props => {
 	useEffect(() => {
 		props.initializeApp();
-	});
+	}, []);
 	// [props.userId]
 
 	if (!props.initialized) return <Preloader />;
@@ -46,4 +47,4 @@ const mapStateToProps = state => {
 		initialized: state.app.initialized,
 	};
 };
-export default connect(mapStateToProps, { initializeApp })(App);
+export default compose(connect(mapStateToProps, { initializeApp }))(App);

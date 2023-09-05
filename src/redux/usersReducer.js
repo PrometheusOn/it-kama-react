@@ -87,7 +87,7 @@ const toogleFollowingProgress = (isFetching, userId) => ({
 	userId,
 });
 
-const getUsers = (currentPage, pageSize) => dispatch => {
+const requestUsers = (currentPage, pageSize) => dispatch => {
 	dispatch(toogleIsFetching(true));
 	userAPI.getUsers(currentPage, pageSize).then(response => {
 		dispatch(setCurrentPage(currentPage));
@@ -126,5 +126,5 @@ export {
 	setTotalUsersCount,
 	toogleIsFetching,
 	toogleFollowingProgress,
-	getUsers,
+	requestUsers,
 };
