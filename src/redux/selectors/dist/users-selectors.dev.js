@@ -5,10 +5,18 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getFollowingInProgress = exports.getIsFetching = exports.getCurrentPage = exports.getTotalUsersCount = exports.getPageSize = exports.getUsers = void 0;
 
-var getUsers = function getUsers(state) {
+var _reselect = require("reselect");
+
+var getUsersSelector = function getUsersSelector(state) {
+  // примитивный селектор
   return state.usersPage.users;
 };
 
+var getUsers = (0, _reselect.createSelector)(getUsersSelector, function (users) {
+  return users.filter(function (u) {
+    return true;
+  });
+});
 exports.getUsers = getUsers;
 
 var getPageSize = function getPageSize(state) {
