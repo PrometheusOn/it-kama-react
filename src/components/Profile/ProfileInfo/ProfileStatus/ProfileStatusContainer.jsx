@@ -1,8 +1,9 @@
 import { compose } from "redux";
-import ProfileStatus from "./ProfileStatus";
+import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
+// import ProfileStatus from "./ProfileStatus";
 
 const ProfileStatusContainer = props => {
-	return <ProfileStatus {...props} />;
+	return <ProfileStatusWithHooks {...props} />;
 };
 
 export default compose()(ProfileStatusContainer);
