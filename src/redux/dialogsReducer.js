@@ -1,5 +1,6 @@
 const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 const ADD_MESSAGE = "ADD-MESSAGE";
+const DELETE_MESSAGE = "DELETE_MESSAGE";
 const CLEAR_FIELD_NEW_MESSAGE = "CLEAR_FIELD_NEW_MESSAGE";
 
 const initialState = {
@@ -41,11 +42,20 @@ const dialogsReducer = (state = initialState, action) => {
 				messages: [...state.messages, { id: 5, message: action.textNewMessage }],
 			};
 		}
+		case DELETE_MESSAGE: {
+			return {
+				...state,
+				messages: [...state.messages].filter(m => {
+					return m.id !== action.idMessage
+				}),
+			};
+		}
 		default:
 			return state;
 	}
 };
 
 const addNewMessage = textNewMessage => ({ type: ADD_MESSAGE, textNewMessage });
+const deleteMessage = idMessage => ({ type: DELETE_MESSAGE, idMessage });
 
-export { dialogsReducer, addNewMessage };
+export { dialogsReducer, addNewMessage, deleteMessage };

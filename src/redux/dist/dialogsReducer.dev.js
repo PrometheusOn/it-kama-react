@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.addNewMessage = exports.dialogsReducer = void 0;
+exports.deleteMessage = exports.addNewMessage = exports.dialogsReducer = void 0;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
 
@@ -21,6 +21,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
 var ADD_MESSAGE = "ADD-MESSAGE";
+var DELETE_MESSAGE = "DELETE_MESSAGE";
 var CLEAR_FIELD_NEW_MESSAGE = "CLEAR_FIELD_NEW_MESSAGE";
 var initialState = {
   dialogs: [{
@@ -70,6 +71,15 @@ var dialogsReducer = function dialogsReducer() {
         });
       }
 
+    case DELETE_MESSAGE:
+      {
+        return _objectSpread({}, state, {
+          messages: _toConsumableArray(state.messages).filter(function (m) {
+            return m.id !== action.idMessage;
+          })
+        });
+      }
+
     default:
       return state;
   }
@@ -85,3 +95,12 @@ var addNewMessage = function addNewMessage(textNewMessage) {
 };
 
 exports.addNewMessage = addNewMessage;
+
+var deleteMessage = function deleteMessage(idMessage) {
+  return {
+    type: DELETE_MESSAGE,
+    idMessage: idMessage
+  };
+};
+
+exports.deleteMessage = deleteMessage;
