@@ -21,9 +21,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var ADD_POST = "ADD-POST";
-var SET_USER_PROFILE = "SET_USER_PROFILE";
-var SET_USER_STATUS = "SET_USER_STATUS";
+var ADD_POST = "social-network/profileReducer/ADD-POST";
+var SET_USER_PROFILE = "social-network/profileReducer/SET_USER_PROFILE";
+var SET_USER_STATUS = "social-network/profileReducer/SET_USER_STATUS";
 var initialState = {
   posts: [{
     id: 1,
@@ -106,9 +106,24 @@ var setUserStatus = function setUserStatus(status) {
 };
 
 var getProfileUser = function getProfileUser(id) {
-  return function (dispatch) {
-    _api.profileAPI.getProfile(id).then(function (response) {
-      dispatch(setUserProfile(response));
+  return function _callee(dispatch) {
+    var response;
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return regeneratorRuntime.awrap(_api.profileAPI.getProfile(id));
+
+          case 2:
+            response = _context.sent;
+            dispatch(setUserProfile(response));
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
     });
   };
 };
@@ -116,9 +131,24 @@ var getProfileUser = function getProfileUser(id) {
 exports.getProfileUser = getProfileUser;
 
 var getUserStatus = function getUserStatus(id) {
-  return function (dispatch) {
-    _api.profileAPI.getStatus(id).then(function (response) {
-      dispatch(setUserStatus(response));
+  return function _callee2(dispatch) {
+    var response;
+    return regeneratorRuntime.async(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return regeneratorRuntime.awrap(_api.profileAPI.getStatus(id));
+
+          case 2:
+            response = _context2.sent;
+            dispatch(setUserStatus(response));
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
     });
   };
 };
@@ -126,9 +156,24 @@ var getUserStatus = function getUserStatus(id) {
 exports.getUserStatus = getUserStatus;
 
 var updateUserStatus = function updateUserStatus(status) {
-  return function (dispatch) {
-    _api.profileAPI.updateStatus(status).then(function (response) {
-      if (response.resultCode === 0) dispatch(setUserStatus(status));
+  return function _callee3(dispatch) {
+    var response;
+    return regeneratorRuntime.async(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return regeneratorRuntime.awrap(_api.profileAPI.updateStatus(status));
+
+          case 2:
+            response = _context3.sent;
+            if (response.resultCode === 0) dispatch(setUserStatus(status));
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }
     });
   };
 };

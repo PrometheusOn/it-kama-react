@@ -1,12 +1,13 @@
 import { userAPI, followAPI } from "../api/api";
+import { updateObjectInArray } from "../utils/object-helper";
 
-const FOLLOW = "FOLLOW";
-const UNFOLLOW = "UNFOLLOW";
-const SET_USERS = "SET_USERS";
-const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
-const SET_TOTAL_USERS_COUNT = "SET_TOTAL_USER_COUNT";
-const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
-const TOOGLE_IS_FOLLOWING_PROGRESS = "TOOGLE_IS_FOLLOWING_PROGRESS";
+const FOLLOW = "social-network/usersReducer/FOLLOW";
+const UNFOLLOW = "social-network/usersReducer/UNFOLLOW";
+const SET_USERS = "social-network/usersReducer/SET_USERS";
+const SET_CURRENT_PAGE = "social-network/usersReducer/SET_CURRENT_PAGE";
+const SET_TOTAL_USERS_COUNT = "social-network/usersReducer/SET_TOTAL_USER_COUNT";
+const TOOGLE_IS_FETCHING = "social-network/usersReducer/TOOGLE_IS_FETCHING";
+const TOOGLE_IS_FOLLOWING_PROGRESS = "social-network/usersReducer/TOOGLE_IS_FOLLOWING_PROGRESS";
 
 const initialState = {
 	users: [],
@@ -22,23 +23,13 @@ const usersReducer = (state = initialState, action) => {
 		case FOLLOW: {
 			return {
 				...state,
-				users: state.users.map(user => {
-					if (user.id === action.userId) {
-						return { ...user, followed: true };
-					}
-					return user;
-				}),
+				users: updateObjectInArray(state.users, action.userId, "id", { followed: true }),
 			};
 		}
 		case UNFOLLOW: {
 			return {
 				...state,
-				users: state.users.map(user => {
-					if (user.id === action.userId) {
-						return { ...user, followed: false };
-					}
-					return user;
-				}),
+				users: updateObjectInArray(state.users, action.userId, "id", { followed: false }),
 			};
 		}
 		case SET_USERS: {
@@ -87,34 +78,30 @@ const toogleFollowingProgress = (isFetching, userId) => ({
 	userId,
 });
 
-const requestUsers = (currentPage, pageSize) => dispatch => {
+const requestUsers = (currentPage, pageSize) => async dispatch => {
 	dispatch(toogleIsFetching(true));
-	userAPI.getUsers(currentPage, pageSize).then(response => {
-		dispatch(setCurrentPage(currentPage));
-		dispatch(toogleIsFetching(false));
-		dispatch(setUsers(response.items));
-		dispatch(setTotalUsersCount(response.totalCount));
-	});
+	const response = await userAPI.getUsers(currentPage, pageSize);
+	dispatch(setCurrentPage(currentPage));
+	dispatch(toogleIsFetching(false));
+	dispatch(setUsers(response.items));
+	dispatch(setTotalUsersCount(response.totalCount));
 };
 
-const unfollow = userId => dispatch => {
+const followUnfollowFlow = async (dispatch, userId, apiMethod, actionCreator) => {
 	dispatch(toogleFollowingProgress(true, userId));
-	followAPI.unfollow(userId).then(response => {
-		if (response.resultCode == 0) {
-			dispatch(unfollowSuccess(userId));
-		}
-		dispatch(toogleFollowingProgress(false, userId));
-	});
+	const response = await apiMethod(userId);
+	if (response.resultCode == 0) {
+		dispatch(actionCreator(userId));
+	}
+	dispatch(toogleFollowingProgress(false, userId));
 };
 
-const follow = userId => dispatch => {
-	dispatch(toogleFollowingProgress(true, userId));
-	followAPI.follow(userId).then(response => {
-		if (response.resultCode == 0) {
-			dispatch(followSuccess(userId));
-		}
-		dispatch(toogleFollowingProgress(false, userId));
-	});
+const unfollow = userId => async dispatch => {
+	followUnfollowFlow(dispatch, userId, followAPI.unfollow, unfollowSuccess);
+};
+
+const follow = userId => async dispatch => {
+	followUnfollowFlow(dispatch, userId, followAPI.follow, followSuccess);
 };
 
 export {

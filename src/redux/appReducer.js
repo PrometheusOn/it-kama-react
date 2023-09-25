@@ -1,6 +1,6 @@
-import { getAuthUser } from "./auth-reducer";
+import { getAuthUser } from "./authReducer";
 
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS";
+const INITIALIZED_SUCCESS = "social-network/appReducer/INITIALIZED_SUCCESS";
 
 const initialState = {
 	initialized: false,

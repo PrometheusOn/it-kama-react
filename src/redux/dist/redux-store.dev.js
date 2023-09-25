@@ -15,7 +15,7 @@ var _sidebarReducer = require("./sidebarReducer");
 
 var _usersReducer = require("./usersReducer");
 
-var _authReducer = require("./auth-reducer");
+var _authReducer = require("./authReducer");
 
 var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
 

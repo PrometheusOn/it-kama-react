@@ -44,17 +44,6 @@ class UsersContainer extends React.Component {
 	}
 }
 
-// const mapStateToProps = state => {
-// 	return {
-// 		users: state.usersPage.users,
-// 		pageSize: state.usersPage.pageSize,
-// 		totalUsersCount: state.usersPage.totalUsersCount,
-// 		currentPage: state.usersPage.currentPage,
-// 		isFetching: state.usersPage.isFetching,
-// 		followingInProgress: state.usersPage.followingInProgress,
-// 	};
-// };
-
 const mapStateToProps = state => {
 	return {
 		users: getUsers(state),
@@ -70,7 +59,7 @@ export default compose(
 	connect(mapStateToProps, {
 		follow,
 		unfollow,
-		toogleFollowingProgress, // AC
-		requestUsers, //thunkCreator TC
+		toogleFollowingProgress,
+		requestUsers,
 	})
 )(UsersContainer);

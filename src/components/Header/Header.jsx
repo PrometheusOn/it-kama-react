@@ -6,7 +6,6 @@ const Header = props => {
 	return (
 		<header className={classes.header}>
 			<img src='https://www.fcufa.pro/images/style/logo_fc_ufa_2022.png' />
-
 			<div className={classes.loginBlock}>
 				{props.isAuth ? (
 					<div className={classes.logoutBlock}>

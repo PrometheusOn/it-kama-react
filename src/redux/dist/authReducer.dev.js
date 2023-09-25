@@ -55,17 +55,16 @@ var authReducer = function authReducer() {
           email: email,
           password: password,
           rememberMe: rememberMe,
-          captcha: captcha,
-          isAuth: true
-        });
-      }
+          captcha: captcha // isAuth: true,
 
-    case SET_USERID:
-      {
-        return _objectSpread({}, state, {
-          userId: action.userId
         });
       }
+    // case SET_USERID: {
+    // 	return {
+    // 		...state,
+    // 		userId: action.userId,
+    // 	};
+    // }
 
     case CLEAR_USER_DATA:
       {
@@ -146,16 +145,10 @@ var setLogPassUser = function setLogPassUser(obj) {
     type: SET_LOGPASS_USER,
     obj: obj
   };
-};
+}; // const setUserId = userId => ({ type: SET_USERID, userId });
+
 
 exports.setLogPassUser = setLogPassUser;
-
-var setUserId = function setUserId(userId) {
-  return {
-    type: SET_USERID,
-    userId: userId
-  };
-};
 
 var clearUserData = function clearUserData() {
   return {
@@ -164,20 +157,39 @@ var clearUserData = function clearUserData() {
 };
 
 var getAuthUser = function getAuthUser() {
-  return function (dispatch) {
-    dispatch(toogleIsFetching(true));
-    return _api.authAPI.authMe().then(function (response) {
-      if (response.resultCode === 0) {
-        dispatch(toogleIsFetching(false));
-        var _response$data = response.data,
-            userId = _response$data.id,
-            email = _response$data.email,
-            login = _response$data.login;
-        dispatch(setAuthUserData(userId, email, login));
+  return function _callee(dispatch) {
+    var response, _response$data, userId, email, login;
 
-        _api.profileAPI.getProfile(userId).then(function (response) {
-          if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
-        });
+    return regeneratorRuntime.async(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            dispatch(toogleIsFetching(true));
+            _context.next = 3;
+            return regeneratorRuntime.awrap(_api.authAPI.authMe());
+
+          case 3:
+            response = _context.sent;
+
+            if (!(response.resultCode === 0)) {
+              _context.next = 12;
+              break;
+            }
+
+            dispatch(toogleIsFetching(false));
+            _response$data = response.data, userId = _response$data.id, email = _response$data.email, login = _response$data.login;
+            dispatch(setAuthUserData(userId, email, login));
+            _context.next = 10;
+            return regeneratorRuntime.awrap(_api.profileAPI.getProfile(userId));
+
+          case 10:
+            response = _context.sent;
+            if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
       }
     });
   };
@@ -186,23 +198,38 @@ var getAuthUser = function getAuthUser() {
 exports.getAuthUser = getAuthUser;
 
 var signIn = function signIn(obj) {
-  return function (dispatch) {
-    var objectForApi = {
-      email: obj.email,
-      password: obj.password,
-      rememberMe: obj.rememberMe || false,
-      captcha: obj.captcha || false
-    };
+  return function _callee2(dispatch) {
+    var objectForApi, response, message;
+    return regeneratorRuntime.async(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            objectForApi = {
+              email: obj.email,
+              password: obj.password,
+              rememberMe: obj.rememberMe || false,
+              captcha: obj.captcha || false
+            };
+            _context2.next = 3;
+            return regeneratorRuntime.awrap(_api.authAPI.login(objectForApi));
 
-    _api.authAPI.login(objectForApi).then(function (response) {
-      if (response.resultCode === 0) {
-        dispatch(setLogPassUser(objectForApi));
-        dispatch(setUserId(response.data.userId));
-      } else {
-        var message = response.messages.length > 0 ? response.messages[0] : "Неизвестная ошибка";
-        dispatch((0, _reduxForm.stopSubmit)("login", {
-          _error: message
-        }));
+          case 3:
+            response = _context2.sent;
+
+            if (response.resultCode === 0) {
+              dispatch(setLogPassUser(objectForApi));
+              dispatch(getAuthUser()); // dispatch(setUserId(response.data.userId));
+            } else {
+              message = response.messages.length > 0 ? response.messages[0] : "Неизвестная ошибка";
+              dispatch((0, _reduxForm.stopSubmit)("login", {
+                _error: message
+              }));
+            }
+
+          case 5:
+          case "end":
+            return _context2.stop();
+        }
       }
     });
   };
@@ -211,10 +238,26 @@ var signIn = function signIn(obj) {
 exports.signIn = signIn;
 
 var signOut = function signOut() {
-  return function (dispatch) {
-    _api.authAPI.logout().then(function (response) {
-      if (response.resultCode === 0) {
-        dispatch(clearUserData());
+  return function _callee3(dispatch) {
+    var response;
+    return regeneratorRuntime.async(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return regeneratorRuntime.awrap(_api.authAPI.logout());
+
+          case 2:
+            response = _context3.sent;
+
+            if (response.resultCode === 0) {
+              dispatch(clearUserData());
+            }
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
       }
     });
   };

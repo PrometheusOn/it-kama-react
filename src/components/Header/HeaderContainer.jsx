@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import { connect } from "react-redux";
-import { signOut } from "../../redux/auth-reducer";
+import { signOut } from "../../redux/authReducer";
 import { compose } from "redux";
 import { getIsAuth, getLogin, getPhotoAuthUser } from "../../redux/selectors/auth-selector";
 

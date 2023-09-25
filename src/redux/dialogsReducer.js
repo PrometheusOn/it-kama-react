@@ -1,7 +1,5 @@
-const UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-const ADD_MESSAGE = "ADD-MESSAGE";
-const DELETE_MESSAGE = "DELETE_MESSAGE";
-const CLEAR_FIELD_NEW_MESSAGE = "CLEAR_FIELD_NEW_MESSAGE";
+const ADD_MESSAGE = "social-network/dialogsReducer/ADD-MESSAGE";
+const DELETE_MESSAGE = "social-network/dialogsReducer/DELETE_MESSAGE";
 
 const initialState = {
 	dialogs: [
@@ -46,7 +44,7 @@ const dialogsReducer = (state = initialState, action) => {
 			return {
 				...state,
 				messages: [...state.messages].filter(m => {
-					return m.id !== action.idMessage
+					return m.id !== action.idMessage;
 				}),
 			};
 		}

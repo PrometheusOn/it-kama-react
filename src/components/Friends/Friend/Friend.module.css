@@ -1,0 +1,25 @@
+.friend {
+	display: grid;
+	grid-template-columns: 50px calc(100% / 2);
+	border: white solid 1px;
+	border-radius: 30px;
+	padding: 3px;
+	margin-bottom: 3px;
+}
+
+.friend img {
+	display: grid;
+	grid-column: 1/2;
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+}
+
+.friendName {
+	display: grid;
+	grid-column: 2/3;
+	justify-content: center;
+	align-content: center;
+	color: white;
+	text-align: center;
+}

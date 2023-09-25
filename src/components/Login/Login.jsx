@@ -6,7 +6,7 @@ const Login = props => {
 	const onSubmit = formData => {
 		props.signIn(formData);
 	};
-	
+
 	if (props.isAuth) return <Navigate to={`/profile`} />;
 
 	return (

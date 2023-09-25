@@ -2,7 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 
 const StatusForm = props => {
-    console.log(props)
+	console.log(props);
 	return (
 		<form>
 			<Field

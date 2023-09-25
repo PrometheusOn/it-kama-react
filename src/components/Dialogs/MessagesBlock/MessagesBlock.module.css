@@ -1,5 +1,9 @@
 .messageBlock {
+    padding: 5px;
+    display: grid;
+    grid-template-rows: 90% 10%;
     background-color: white;
+    height: 100%;
 }
 
 .message {

@@ -5,7 +5,6 @@ import { FormControl } from "../../../common/FormsControls/FormsControls";
 import { requiredField, maxLengthText } from "../../../../utils/validators/validators";
 
 const AddMessageForm = props => {
-	// console.log(props.dialogsPage);
 
 	const maxLength100 = maxLengthText(100);
 	return (

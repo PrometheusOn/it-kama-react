@@ -1,43 +1,12 @@
 .friendsBlock {
-    display: grid;
-    width: auto;
-    grid-template-rows: auto 1fr;
-    margin-top: 10px;
+	width: 100%;
+	margin-top: 10px;
 }
 
-.header{
-    grid-column-start: 1;
-    grid-column-end: 5;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    font-size: 25px;
-    color: white;
+.header {
+	font-size: 25px;
+	color: white;
 }
 
-.friendsItems{
-    display: grid;
-    grid-column-start: 1;
-    grid-column-end: 5;
-    grid-row-start: 2;
-    grid-row-end: 3;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+.friendsItems {
 }
-
-.friend{
-    height: 75px;
-    width: 50px;
-    padding: 3px;
-}
-
-.friend img{
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-}
-
-.friendName{
-    color: white;
-    text-align: center;
-}
-
-  

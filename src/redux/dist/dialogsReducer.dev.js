@@ -19,10 +19,8 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var UPDATE_NEW_MESSAGE_TEXT = "UPDATE-NEW-MESSAGE-TEXT";
-var ADD_MESSAGE = "ADD-MESSAGE";
-var DELETE_MESSAGE = "DELETE_MESSAGE";
-var CLEAR_FIELD_NEW_MESSAGE = "CLEAR_FIELD_NEW_MESSAGE";
+var ADD_MESSAGE = "social-network/dialogsReducer/ADD-MESSAGE";
+var DELETE_MESSAGE = "social-network/dialogsReducer/DELETE_MESSAGE";
 var initialState = {
   dialogs: [{
     id: 1,

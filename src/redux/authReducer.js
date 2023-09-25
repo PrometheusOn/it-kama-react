@@ -2,12 +2,12 @@ import { authAPI, profileAPI } from "../api/api";
 import { stopSubmit } from "redux-form";
 import userPhoto from "../assets/images/user.png";
 
-const SET_LOGPASS_USER = "SET_LOGPASS_USER";
-const SET_USERID = "SET_USERID";
-const CLEAR_USER_DATA = "CLEAR_USER_DATA";
-const SET_USER_DATA = "SET_USER_DATA";
-const TOOGLE_IS_FETCHING = "TOOGLE_IS_FETCHING";
-const SET_PHOTO_AUTH_USER = "SET_PHOTO_AUTH_USER";
+const SET_LOGPASS_USER = "social-network/authReducer/SET_LOGPASS_USER";
+const SET_USERID = "social-network/authReducer/SET_USERID";
+const CLEAR_USER_DATA = "social-network/authReducer/CLEAR_USER_DATA";
+const SET_USER_DATA = "social-network/authReducer/SET_USER_DATA";
+const TOOGLE_IS_FETCHING = "social-network/authReducer/TOOGLE_IS_FETCHING";
+const SET_PHOTO_AUTH_USER = "social-network/authReducer/SET_PHOTO_AUTH_USER";
 
 const initialState = {
 	email: "",
@@ -31,15 +31,15 @@ const authReducer = (state = initialState, action) => {
 				password,
 				rememberMe,
 				captcha,
-				isAuth: true,
+				// isAuth: true,
 			};
 		}
-		case SET_USERID: {
-			return {
-				...state,
-				userId: action.userId,
-			};
-		}
+		// case SET_USERID: {
+		// 	return {
+		// 		...state,
+		// 		userId: action.userId,
+		// 	};
+		// }
 		case CLEAR_USER_DATA: {
 			return {
 				email: "",
@@ -83,52 +83,48 @@ const setAuthUserData = (userId, email, login) => ({
 const toogleIsFetching = isFetching => ({ type: TOOGLE_IS_FETCHING, isFetching });
 const setPhotoAuthUser = photo => ({ type: SET_PHOTO_AUTH_USER, photo });
 const setLogPassUser = obj => ({ type: SET_LOGPASS_USER, obj });
-const setUserId = userId => ({ type: SET_USERID, userId });
+// const setUserId = userId => ({ type: SET_USERID, userId });
 const clearUserData = () => ({ type: CLEAR_USER_DATA });
 
-const getAuthUser = () => dispatch => {
+const getAuthUser = () => async dispatch => {
 	dispatch(toogleIsFetching(true));
-	return authAPI.authMe().then(response => {
-		if (response.resultCode === 0) {
-			dispatch(toogleIsFetching(false));
-			const { id: userId, email, login } = response.data;
-			dispatch(setAuthUserData(userId, email, login));
-			profileAPI.getProfile(userId).then(response => {
-				if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
-			});
-		}
-	});
+	let response = await authAPI.authMe();
+	if (response.resultCode === 0) {
+		dispatch(toogleIsFetching(false));
+		const { id: userId, email, login } = response.data;
+		dispatch(setAuthUserData(userId, email, login));
+		response = await profileAPI.getProfile(userId);
+		if (response.photos.large) dispatch(setPhotoAuthUser(response.photos.large));
+	}
 };
 
-const signIn = obj => dispatch => {
+const signIn = obj => async dispatch => {
 	const objectForApi = {
 		email: obj.email,
 		password: obj.password,
 		rememberMe: obj.rememberMe || false,
 		captcha: obj.captcha || false,
 	};
-	authAPI.login(objectForApi).then(response => {
-		if (response.resultCode === 0) {
-			dispatch(setLogPassUser(objectForApi));
-			dispatch(setUserId(response.data.userId));
-		} else {
-			const message =
-				response.messages.length > 0 ? response.messages[0] : "Неизвестная ошибка";
-			dispatch(
-				stopSubmit("login", {
-					_error: message,
-				})
-			);
-		}
-	});
+	const response = await authAPI.login(objectForApi);
+	if (response.resultCode === 0) {
+		dispatch(setLogPassUser(objectForApi));
+		dispatch(getAuthUser());
+		// dispatch(setUserId(response.data.userId));
+	} else {
+		const message = response.messages.length > 0 ? response.messages[0] : "Неизвестная ошибка";
+		dispatch(
+			stopSubmit("login", {
+				_error: message,
+			})
+		);
+	}
 };
 
-const signOut = () => dispatch => {
-	authAPI.logout().then(response => {
-		if (response.resultCode === 0) {
-			dispatch(clearUserData());
-		}
-	});
+const signOut = () => async dispatch => {
+	const response = await authAPI.logout();
+	if (response.resultCode === 0) {
+		dispatch(clearUserData());
+	}
 };
 
 export {

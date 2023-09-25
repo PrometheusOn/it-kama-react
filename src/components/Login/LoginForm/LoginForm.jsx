@@ -36,6 +36,21 @@ const LoginForm = props => {
 				/>
 				remember me
 			</div>
+
+			{/* {сreateField("Email", "email", [requiredField], FormControl, { typeField: "input" })}
+			{сreateField("Password", "password", [requiredField], FormControl, {
+				typeField: "password",
+			})}
+			{сreateField(
+				null,
+				"rememberMe",
+				null,
+				FormControl,
+				{ typeField: "checkbox" },
+				"remember me"
+			)} */}
+			{/* выпуск#90 */}
+
 			{props.error && <div className={classes.formSummaryError}>{props.error}</div>}
 			<div>
 				<button>Login</button>
