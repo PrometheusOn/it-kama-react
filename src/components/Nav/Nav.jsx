@@ -24,6 +24,9 @@ const Nav = (props) => {
                 <NavLink to='/users' className={setActive}>Find users</NavLink>
             </div>
             <div className={classes.item}>
+                <NavLink to='/group' className={setActive}>Find group</NavLink>
+            </div>
+            <div className={classes.item}>
                 <NavLink to='/settings' className={setActive}>Settings</NavLink>
             </div>
             <div className={classes.item}>

@@ -1,0 +1,10 @@
+.userList {
+	display: grid;
+	grid-template-columns: 100%;
+	row-gap: 10px;
+}
+
+.formCreate {
+	border: 1px solid black;
+	padding: 5px;
+}

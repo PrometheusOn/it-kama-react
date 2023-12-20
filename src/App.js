@@ -7,6 +7,7 @@ import News from "./components/News/News.jsx";
 import Music from "./components/Music/Music.jsx";
 import Settings from "./components/Settings/Settings.jsx";
 import UsersContainer from "./components/Users/UsersContainer.jsx";
+import GroupContainer from "./components/Group/GroupContainer.jsx";
 import { Routes, Route } from "react-router-dom";
 import NavContainer from "./components/Nav/NavContainer";
 import LoginContainer from "./components/Login/LoginContainer";
@@ -34,6 +35,7 @@ const App = props => {
 					<Route path='/news' element={<News />} />
 					<Route path='/music' element={<Music />} />
 					<Route path='/users' element={<UsersContainer />} />
+					<Route path='/group' element={<GroupContainer />} />
 					<Route path='/settings' element={<Settings />} />
 					<Route path='/*' element={<div>Страница не найдена</div>} />
 					<Route path='/login' element={<LoginContainer />} />
